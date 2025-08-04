@@ -37,10 +37,14 @@ public class AddSeries
         JLabel episodesLabel = new JLabel("Number of Episodes:");
         JTextField episodesField = new JTextField();
 
+        JLabel descriptionLabel = new JLabel("Description:");
+        JTextField descriptionField = new JTextField();
+
         formPanel.add(idLabel);      formPanel.add(idField);
         formPanel.add(nameLabel);    formPanel.add(nameField);
         formPanel.add(ageLabel);     formPanel.add(ageCombo);
         formPanel.add(episodesLabel);formPanel.add(episodesField);
+        formPanel.add(descriptionLabel);formPanel.add(descriptionField);
 
         return formPanel;
     }
@@ -48,7 +52,7 @@ public class AddSeries
     public JPanel getMetadataPanel(String seriesId) 
     {
         JPanel metaPanel = new JPanel(new GridLayout(3, 1));
-        metaPanel.setBorder(BorderFactory.createTitledBorder("Metadata"));
+        metaPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         JLabel dateLabel = new JLabel("Date: " + LocalDate.now());
         JLabel userLabel = new JLabel("User: " + loggedInUser);
