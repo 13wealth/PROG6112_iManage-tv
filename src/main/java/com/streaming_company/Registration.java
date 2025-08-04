@@ -1,7 +1,11 @@
 package com.streaming_company;
 
 import java.awt.GridLayout;
-import javax.swing.*;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Registration 
 {
@@ -22,8 +26,8 @@ public class Registration
                 regPanel.add(nameField);           
                 regPanel.add(new JLabel("Surname:"));
                 regPanel.add(surnameField);
-                regPanel.add(new JLabel("Email:"));
-                regPanel.add(emailField);
+                /*regPanel.add(new JLabel("Email:"));
+                regPanel.add(emailField);*/
 
                 int result = JOptionPane.showConfirmDialog(
                                                     null,
@@ -37,19 +41,27 @@ public class Registration
                     {
                         name = nameField.getText().trim();                      //Get the text from the name field and trim whitespace
                         surname = surnameField.getText().trim();                //Get the text from the surname field and trim whitespace
-                        email = emailField.getText().trim();                    //Get the text from the email field and trim whitespace    
-                    
-                        if (name.isEmpty() || surname.isEmpty() || email.isEmpty()) 
+                        email = emailField.getText().trim();                    //Get the text from the email field and trim whitespace
+
+                        if (name.isEmpty() || surname.isEmpty() /*|| email.isEmpty()*/)
                         {
                             JOptionPane.showMessageDialog(null, "All fields are required.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        } else if (!inputValidation.checkEmail(email)) {
-                            JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                       /* } else if (!inputValidation.checkEmail(email)) {
+                            JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "ERROR", JOptionPane.ERROR_MESSAGE);*/
                             } else {
                                 break;                                          //If all fields are filled and email is valid then exit loop
                         }                                                       
                     } else {
-                DialogHelper.exitIfNotOk(result);    
+                UIHelper.exitIfNotOk(result);    
             }
         }
+    }
+    public static String getFullName() 
+    {
+        if (name == null || surname == null) 
+        {
+            return "No name provided";
+        }
+    return name + " " + surname;
     }
 }
