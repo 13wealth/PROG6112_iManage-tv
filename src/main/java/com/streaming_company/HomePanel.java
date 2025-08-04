@@ -17,23 +17,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+
 /**
  * JPanel styling components was assisted by ChatGPT
  *
  */
 public class HomePanel extends JPanel                                                           //Inheriits the JPanel GUI components
 {
-    private String regName;
+        private String regName;
+        private JPanel mainContent;
+        private JPanel rightPanel;
+        private JComboBox<String> sideBarDropdown;
+        private String loggedInUser;
 
     public HomePanel(String fullname)                                                           //Use method as a constructor to return the registered user's name
     {
         this.regName = fullname;
-
+        this.loggedInUser = fullname;                                                           //Save user for metadata 
 
 //------------------------ WELCOME MESSAGE ------------------------//
         JPanel topPanel = new JPanel(new BorderLayout());                                       //Declare a new top panel
         topPanel.setBackground(new Color(45, 45, 45));                                          //Match dark theme
-        topPanel.setPreferredSize(new Dimension(1000, 100));  // Give it height
+        topPanel.setPreferredSize(new Dimension(1000, 100));                                    //Give it height
         topPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));        //Padding inside
 
 
@@ -97,7 +102,7 @@ public class HomePanel extends JPanel                                           
                                                                                                   Put the panel to the left of the window*/
         dropdownPanel.setBackground(topPanel.getBackground());
 
-        String[] menuItems = {"Add Series", "Age Restriction", "Delete Series", "Print Report"};
+        String[] menuItems = {"","Add Series", "Age Restriction", "Delete Series", "Print Report"};
         JComboBox<String> dropdown = new JComboBox<>(menuItems);
         dropdownPanel.add(dropdown);
 
@@ -143,8 +148,34 @@ public class HomePanel extends JPanel                                           
 //------------------------ ASSEMBLE EVERYTHING ------------------------//
         //Assembles all the parts built into the main layout
         add(topPanel, BorderLayout.NORTH);                                                      //Adds the top panel at the top of the window
-        add(sideBar, BorderLayout.WEST);        //Adds the sidebar on the left
-        add(splitPane, BorderLayout.CENTER);    //Adds the split pane to the center of the app
+        add(sideBar, BorderLayout.WEST);                                                        //Adds the sidebar on the left
+        add(splitPane, BorderLayout.CENTER);                                                    //Adds the split pane to the center of the app
+    
+
+//------------------------ CAPTURE SERIES ------------------------//
+         dropdown.addActionListener(j -> 
+         {
+            String selected = (String) dropdown.getSelectedItem();
+            
+            if ("Add Series".equals(selected)) 
+            {
+                AddSeries seriesForm = new AddSeries(loggedInUser);
+
+                JPanel formPanel = seriesForm.getMainFormPanel();
+                String generatedId = "SER" + System.currentTimeMillis(); 
+                JPanel metaPanel = seriesForm.getMetadataPanel(generatedId);
+
+                mainContent.removeAll();
+                mainContent.add(formPanel, BorderLayout.CENTER);
+                mainContent.revalidate();
+                mainContent.repaint();
+
+                rightPanel.removeAll();
+                rightPanel.add(metaPanel, BorderLayout.NORTH);
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
     }
 }
 
