@@ -2,7 +2,11 @@ package com.streaming_company;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -49,7 +53,6 @@ public class UIHelper
             exitIfNotOk(response);
     }
 
-    
     /**
      * Styles a JButton with specified colors.
      * @param button
@@ -81,32 +84,55 @@ public class UIHelper
         });
     }
 
+    /**
+     * Styles the sidebar buttons with specified colors.
+     * @param button
+     * @param baseColor
+     * @param hoverColor
+     */    
     public static void styleSideBarButton(JButton button, Color baseColor, Color hoverColor) 
     {
         button.setFocusPainted(false);
-    button.setBorderPainted(true);
-    button.setContentAreaFilled(true);
-    button.setOpaque(true);
-    button.setBackground(baseColor);
-    button.setForeground(Color.WHITE);
-    button.setFont(new Font("Aptos", Font.BOLD, 14));
+        button.setBorderPainted(true);
+        button.setContentAreaFilled(true);
+        button.setOpaque(true);
+        button.setBackground(baseColor);
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Aptos", Font.BOLD, 14));
 
-    // ✅ Combine bevel + padding using compound border
-    button.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createBevelBorder(BevelBorder.RAISED),     // outer bevel
-        BorderFactory.createEmptyBorder(10, 20, 10, 20)           // inner padding
-    ));
-    button.addMouseListener(new java.awt.event.MouseAdapter() 
+        //Combine bevel + padding using compound border
+        button.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createBevelBorder(BevelBorder.RAISED),     // outer bevel
+            BorderFactory.createEmptyBorder(10, 20, 10, 20)           // inner padding
+        ));
+        button.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseEntered(java.awt.event.MouseEvent evt) 
+            {
+                button.setBackground(hoverColor); // Use passed hoverColor
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) 
+            {
+                button.setBackground(baseColor); // Use passed baseColor
+            }
+        });
+    }
+
+    /**
+     * Plays a welcome tone from a specified file.
+     * @param fileName
+     */
+    public static void playWelcomeTone(String fileName) 
     {
-        public void mouseEntered(java.awt.event.MouseEvent evt) 
+        try 
         {
-            button.setBackground(hoverColor); // Use passed hoverColor
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(fileName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } catch (Exception e) {
+            System.out.println("Error playing sound: " + e.getMessage());
         }
-
-        public void mouseExited(java.awt.event.MouseEvent evt) 
-        {
-            button.setBackground(baseColor); // Use passed baseColor
-        }
-    });
-}
+    }
 }

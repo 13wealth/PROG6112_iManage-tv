@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class AddSeries 
@@ -19,32 +20,38 @@ public class AddSeries
         this.loggedInUser = loggedInUser;
     }
 
-    public JPanel getMainFormPanel() 
+    public JPanel getMainFormPanel()                                    //The form below will be created when the user selects "Add Series"
     {
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
+        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));    //GridLayout(5, 2, 10, 10) = 5 rows, 2 columns, 10px horizontal and 10pxvertical gaps.
+            formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        
+    /*This section is for declaring and creating the main form panel 
+    and components like labels, text fields and drop down options*/
         JLabel idLabel = new JLabel("Series ID:");
-        JTextField idField = new JTextField(generateSeriesId());
-        idField.setEditable(false);
+            JTextArea idField = new JTextArea(generateSeriesId() + 
+                                                "\n Captured by: " + loggedInUser +
+                                                "\n Date: " + LocalDate.now());
+                    idField.setEditable(false);                         //Series ID is auto-generated and not editable
+                        idField.setLineWrap(true);
+                            idField.setWrapStyleWord(true);
 
         JLabel nameLabel = new JLabel("Series Name:");
-        JTextField nameField = new JTextField();
+            JTextField nameField = new JTextField();
 
         JLabel ageLabel = new JLabel("Age Restriction:");
-        JComboBox<String> ageCombo = new JComboBox<>(new String[]{"All", "13", "16", "18"});
+            JComboBox<String> ageCombo = new JComboBox<>(new String[]{"All", "13", "16", "18"});
 
         JLabel episodesLabel = new JLabel("Number of Episodes:");
-        JTextField episodesField = new JTextField();
+            JTextField episodesField = new JTextField();
 
         JLabel descriptionLabel = new JLabel("Description:");
-        JTextField descriptionField = new JTextField();
+            JTextField descriptionField = new JTextField();
 
-        formPanel.add(idLabel);      formPanel.add(idField);
-        formPanel.add(nameLabel);    formPanel.add(nameField);
-        formPanel.add(ageLabel);     formPanel.add(ageCombo);
-        formPanel.add(episodesLabel);formPanel.add(episodesField);
-        formPanel.add(descriptionLabel);formPanel.add(descriptionField);
+            formPanel.add(idLabel);             formPanel.add(idField);
+            formPanel.add(nameLabel);           formPanel.add(nameField);
+            formPanel.add(ageLabel);            formPanel.add(ageCombo);
+            formPanel.add(episodesLabel);       formPanel.add(episodesField);
+            formPanel.add(descriptionLabel);    formPanel.add(descriptionField);
 
         return formPanel;
     }
