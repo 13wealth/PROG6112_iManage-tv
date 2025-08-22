@@ -7,7 +7,7 @@ import com.streaming_company.AppLogin;
 import com.streaming_company.HomePanel;
 import com.streaming_company.UIHelper;
 
-public class TVSeriesManagement 
+public class iManageTV 
 {
     public static void main(String[] args) 
     {
@@ -22,6 +22,7 @@ public class TVSeriesManagement
                                                                                        THREAD: A mini-program running inside your bigger program/main*/       
 
             UIHelper.playWelcomeTone("src/sounds/welcome2.wav");           //Plays a welcome sound when the application starts
+
             JFrame appFrame = new JFrame("iManageTV");
             appFrame.setIconImage(new ImageIcon("src/icons/main.png").getImage());
             appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                 //Ensure the application exits when the frame is closed

@@ -20,9 +20,18 @@ import javax.swing.UIManager;
 
 /**
  * JPanel styling components was assisted by ChatGPT
- *
+ * Inheriits the JPanel GUI components/properties. This means HomePanel is a JPanel
+ * By inheriting from JPanel, your HomePanel gets:
+*       •	The ability to contain and manage child components (buttons, labels, other panels).
+*       •	A way to arrange those components with layout managers.
+*       •	The ability to respond to user input events (mouse, keyboard).
+*       •	Customizable painting, borders, tooltips, and look & feel.
+*       •	Integration with Swing’s event and UI architecture.
+* You can add components directly to it.
+* You can override methods like paintComponent(Graphics g) to customize drawing
+* You can use any JPanel method without extra object references.
  */
-public class HomePanel extends JPanel                                                               //Inheriits the JPanel GUI components
+public class HomePanel extends JPanel
 {
         private String regName;
         private JPanel mainContent;
@@ -79,43 +88,49 @@ public class HomePanel extends JPanel                                           
         }
 
 //------------------------ TOP BUTTONS ------------------------//        
-        topPanel.setBackground(new Color(45, 45, 45));                                              //Match dark theme
-
         JPanel leftTop = new JPanel();
-        leftTop.setBackground(topPanel.getBackground());
         leftTop.setLayout(new BoxLayout(leftTop, BoxLayout.Y_AXIS));
+        leftTop.setBackground(topPanel.getBackground());
+        topPanel.setBackground(new Color(45, 45, 45));                                                      //Match dark theme
+        
 
-        //Submit & Exit Buttons
+    //Submit & Exit Buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        buttonPanel.setBackground(topPanel.getBackground());
-        JButton submitButton = new JButton("Submit");                                               //Create the submit button
-        JButton exitButton = new JButton("Exit Application");                                       //Create the exit button
-        exitButton.addActionListener(x -> System.exit(0));                                          //Exits the application when clicked
-        buttonPanel.add(submitButton);                                                              //Add submit button to panel
-        buttonPanel.add(exitButton);                                                                //Add exit button to panel
-            UIHelper.styleButton(submitButton, new Color(76, 175, 80), new Color(69, 160, 73));     //Style submit button: Green
-            UIHelper.styleButton(exitButton, new Color(244, 67, 54), new Color(211, 47, 47));       //Style exit button: Red
+        JButton exitButton = new JButton(" Exit ");
+        JButton submitButton = new JButton(" Submit ");    
+        JButton deleteButton = new JButton(" Delete ");                                                     //Creates the delete button
 
-        //Dropdown Menu
-        JPanel dropdownPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));                         /*You're creating a new container (JPanel) named dropdownPanel.
-                                                                                                    This will hold your dropdown menu (e.g. JComboBox).
-                                                                                                    Put the panel to the left of the window*/
+        buttonPanel.setBackground(topPanel.getBackground());
+            buttonPanel.add(exitButton);                                                                    //Exits the application when clicked
+                UIHelper.styleButton(exitButton, new Color(244, 67, 54), new Color(211, 47, 47));           //Style exit button: Red    
+                    exitButton.addActionListener(x -> System.exit(0)); 
+            buttonPanel.add(submitButton);                                                                  //Add submit button to panel
+                    UIHelper.styleButton(submitButton, new Color(76, 175, 80), new Color(69, 160, 73));     //Style submit button: Green
+            buttonPanel.add(deleteButton);                                                                  //Add delete button to panel
+                    UIHelper.styleButton(deleteButton, new Color(244, 67, 54), new Color(211, 47, 47));     //Style delete button: Red
+    //Dropdown Menu
+      /*
+      You're creating a new container (JPanel) named dropdownPanel.
+      This will hold your dropdown menu (e.g. JComboBox).
+      Put the panel to the left of the window
+      */
+        JPanel dropdownPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));                         
         dropdownPanel.setBackground(topPanel.getBackground());
 
         String[] menuItems = {"","Add Series", "Age Restriction", "Delete Series", "Print Report"};
-        JComboBox<String> dropdown = new JComboBox<>(menuItems);
-        dropdownPanel.add(dropdown);
+            JComboBox<String> dropdown = new JComboBox<>(menuItems);
+                dropdownPanel.add(dropdown);
 
-        //Add both button and dropdown sections to left
+    //Add both button and dropdown panels to left
         leftTop.add(buttonPanel);
         leftTop.add(dropdownPanel);
         topPanel.add(leftTop, BorderLayout.WEST);
 
-        //Search bar
+    //Search bar
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         searchPanel.setBackground(topPanel.getBackground());
         JTextField searchField = new JTextField(20);
-        JButton searchButton = new JButton("Search");
+        JButton searchButton = new JButton(" Search ");
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         topPanel.add(searchPanel, BorderLayout.EAST);
@@ -153,11 +168,12 @@ public class HomePanel extends JPanel                                           
 
 
 //------------------------ CAPTURE SERIES ------------------------//
-         dropdown.addActionListener(j -> {                               /*Attach a listener to the dropdown so that when the user selects
-                                                                           a menu item, this code runs.
-                                                                           The ActionListener will receive an ActionEvent when a selection has
-                                                                           been made. If the combo box is editable, then an ActionEvent will be
-                                                                           fired when editing has stopped.*/
+
+/* Attach a listener to the dropdown so that when the user selects a menu item, this code runs.
+*  The ActionListener will receive an ActionEvent when a selection has  been made. If the combo box is editable,
+*   then an ActionEvent will be fired when editing has stopped.
+*/
+         dropdown.addActionListener(j -> {                               
             
         String selected = (String) dropdown.getSelectedItem();                                      //Get the selected item from the dropdown menu
             if ("Add Series".equals(selected))                                                      //Then apply this condition for the item selected
@@ -186,8 +202,6 @@ public class HomePanel extends JPanel                                           
                                                                                  
                                                         
            
-
-
 
 /**
 * References:
