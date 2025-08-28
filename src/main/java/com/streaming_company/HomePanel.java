@@ -20,18 +20,17 @@ import javax.swing.UIManager;
 
 /**
  * JPanel styling components was assisted by ChatGPT
- * Inheriits the JPanel GUI components/properties. This means HomePanel is a JPanel
  * By inheriting from JPanel, your HomePanel gets:
-*       •	The ability to contain and manage child components (buttons, labels, other panels).
-*       •	A way to arrange those components with layout managers.
-*       •	The ability to respond to user input events (mouse, keyboard).
-*       •	Customizable painting, borders, tooltips, and look & feel.
-*       •	Integration with Swing’s event and UI architecture.
+*       -•	The ability to contain and manage child components (buttons, labels, other panels).
+*       -•	A way to arrange those components with layout managers.
+*       -•	The ability to respond to user input events (mouse, keyboard) <EventListener>.
+*       -•	Customizable painting, borders, tooltips, and look & feel.
+*       -•	Integration with Swing’s event and UI architecture.
 * You can add components directly to it.
 * You can override methods like paintComponent(Graphics g) to customize drawing
 * You can use any JPanel method without extra object references.
  */
-public class HomePanel extends JPanel
+public class HomePanel extends JPanel                                                               //HomePanel class inherits the properties of JPanel
 {
         private String regName;
         private JPanel mainContent;
@@ -39,6 +38,11 @@ public class HomePanel extends JPanel
         private JComboBox<String> sideBarDropdown;
         private String loggedInUser;
 
+    /**
+     * Constructor for HomePanel
+     * All the UI building code lives here, later added to a JFrame in the main method
+     * @param fullname
+     */
     public HomePanel(String fullname)                                                               //Use method as a constructor to return the registered user's name
     {
         this.regName = fullname;
@@ -63,7 +67,6 @@ public class HomePanel extends JPanel
         UIManager.put("Button.foreground", Color.WHITE);                                            //Button text color
         UIManager.put("Label.foreground", Color.GRAY);                                              //Label text color (Main Content Area)
 
-
         setLayout(new BorderLayout());                                                              /*Set main layout of the panel to BorderLayout 
                                                                                                     (NORTH, SOUTH, WEST, EAST, CENTER)*/
 
@@ -74,13 +77,13 @@ public class HomePanel extends JPanel
         sideBar.setPreferredSize(new Dimension(150, getHeight()));                                  //Fixed width
 
         //Define button names and icon paths
-        String[] labels = {"Home", "Profile", "Series", "Movies", "Contacts", "Settings"};
-     
+        String[] labels = {"Add New", "Search", "Update", "Delete", "Statistics", "Exit"};          //Defines the names of the buttons
+
         //Loop through and add buttons to the sidebar
         for (String label : labels) 
         {
-            JButton sideButton = new JButton(label);                                                //Create button with label
-            sideButton.setHorizontalAlignment(SwingConstants.LEFT);                                 //Align text to the left
+            JButton sideButton = new JButton(label);                                                //Declares a new button
+            sideButton.setHorizontalAlignment(SwingConstants.CENTER);                               //Align text to the center
             sideButton.setMaximumSize(new Dimension(Short.MAX_VALUE,60));                           //Width of a button
             sideBar.add(sideButton);
             sideBar.add(Box.createVerticalStrut(15));                                               //Space between buttons
@@ -101,18 +104,19 @@ public class HomePanel extends JPanel
         JButton deleteButton = new JButton(" Delete ");                                                     //Creates the delete button
 
         buttonPanel.setBackground(topPanel.getBackground());
-            buttonPanel.add(exitButton);                                                                    //Exits the application when clicked
+            buttonPanel.add(exitButton);                                                                   
                 UIHelper.styleButton(exitButton, new Color(244, 67, 54), new Color(211, 47, 47));           //Style exit button: Red    
-                    exitButton.addActionListener(x -> System.exit(0)); 
+                    exitButton.addActionListener(x -> System.exit(0));                                      //Exits the application when clicked
+
             buttonPanel.add(submitButton);                                                                  //Add submit button to panel
                     UIHelper.styleButton(submitButton, new Color(76, 175, 80), new Color(69, 160, 73));     //Style submit button: Green
             buttonPanel.add(deleteButton);                                                                  //Add delete button to panel
                     UIHelper.styleButton(deleteButton, new Color(244, 67, 54), new Color(211, 47, 47));     //Style delete button: Red
     //Dropdown Menu
       /*
-      You're creating a new container (JPanel) named dropdownPanel.
-      This will hold your dropdown menu (e.g. JComboBox).
-      Put the panel to the left of the window
+      * You're creating a new container (JPanel) named dropdownPanel.
+      * This will hold your dropdown menu (e.g. JComboBox).
+      * Put the panel to the left of the window
       */
         JPanel dropdownPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));                         
         dropdownPanel.setBackground(topPanel.getBackground());
@@ -161,7 +165,10 @@ public class HomePanel extends JPanel
 
 
 //------------------------ ASSEMBLE EVERYTHING ------------------------//
-        //Assembles all the parts built into the main layout
+/* 
+*  This method builds the main layout of the HomePanel.
+*  At the end of the code, all components are assembled into the main layout with code below.
+*/
         add(topPanel, BorderLayout.NORTH);                                                          //Adds the top panel at the top of the window
         add(sideBar, BorderLayout.WEST);                                                            //Adds the sidebar on the left
         add(splitPane, BorderLayout.CENTER);                                                        //Adds the split pane to the center of the app
