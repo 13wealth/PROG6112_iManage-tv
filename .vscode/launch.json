@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "iManageTV",
+            "request": "launch",
+            "mainClass": "iManageTV",
+            "projectName": "tv_series_management"
+        },
+        {
+            "type": "java",
+            "name": "TVSeriesManagement",
+            "request": "launch",
+            "mainClass": "TVSeriesManagement",
+            "projectName": "tv_series_management"
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
