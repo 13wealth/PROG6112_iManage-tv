@@ -27,7 +27,7 @@ public class iManageTV
             appFrame.setIconImage(new ImageIcon("src/icons/main.png").getImage());  //Sets the icon image for the application window
             appFrame.setSize(1100, 650);                                            //Sets the initial size of the application window when launched
             appFrame.setLocationRelativeTo(null);                                   //Centers the frame on the screen
-            appFrame.add(new HomePanel(fullName));                                  //Fills up the frame with HomePanel components
+            appFrame.add(new HomePanel());                                          //Fills up the frame with HomePanel components
             appFrame.setVisible(true);                                              //Make the frame visible
             appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                //Ensure the application exits when the frame is closed
         });

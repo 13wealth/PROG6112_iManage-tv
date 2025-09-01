@@ -15,64 +15,102 @@ public class AddSeries
 {
     private String loggedInUser;
 
+    //--- Instance variables for form fields (so metadata can read them)
+    private JTextField nameField;
+    private JComboBox<String> ageCombo;
+    private JTextField episodesField;
+    private JTextField descriptionField;
+
     public AddSeries(String loggedInUser) 
     {
         this.loggedInUser = loggedInUser;
     }
 
-    public JPanel getMainFormPanel()                                    //The form below will be created when the user selects "Add Series"
+    /**
+     * Builds the main form panel when "Add Series" is clicked.
+     * The form fields are assigned to instance variables so their data
+     * can be read later for metadata or JSON storage.
+     */
+    public JPanel getMainFormPanel() 
     {
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));    //GridLayout(5, 2, 10, 10) = 5 rows, 2 columns, 10px horizontal and 10pxvertical gaps.
-            formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        
-    /*This section is for declaring and creating the main form panel 
-    and components like labels, text fields and drop down options*/
+        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        // Series ID (auto-generated, non-editable)
         JLabel idLabel = new JLabel("Series ID:");
-            JTextArea idField = new JTextArea(generateSeriesId() + 
-                                                "\n Captured by: " + loggedInUser +
-                                                "\n Date: " + LocalDate.now());
-                    idField.setEditable(false);                         //Series ID is auto-generated and not editable
-                        idField.setLineWrap(true);
-                            idField.setWrapStyleWord(true);
+        JTextArea idField = new JTextArea(generateSeriesId() + 
+                                          "\nCaptured by: " + loggedInUser +
+                                          "\nDate: " + LocalDate.now());
+        idField.setEditable(false);
+        idField.setLineWrap(true);
+        idField.setWrapStyleWord(true);
 
+        // Series Name
         JLabel nameLabel = new JLabel("Series Name:");
-            JTextField nameField = new JTextField();
+        nameField = new JTextField();  // <-- instance variable
 
+        // Age Restriction
         JLabel ageLabel = new JLabel("Age Restriction:");
-            JComboBox<String> ageCombo = new JComboBox<>(new String[]{"All", "13", "16", "18"});
+        ageCombo = new JComboBox<>(new String[]{"All", "13", "16", "18"}); // <-- instance variable
 
+        // Number of Episodes
         JLabel episodesLabel = new JLabel("Number of Episodes:");
-            JTextField episodesField = new JTextField();
+        episodesField = new JTextField(); // <-- instance variable
 
+        // Description
         JLabel descriptionLabel = new JLabel("Description:");
-            JTextField descriptionField = new JTextField();
+        descriptionField = new JTextField(); // <-- instance variable
 
-            formPanel.add(idLabel);             formPanel.add(idField);
-            formPanel.add(nameLabel);           formPanel.add(nameField);
-            formPanel.add(ageLabel);            formPanel.add(ageCombo);
-            formPanel.add(episodesLabel);       formPanel.add(episodesField);
-            formPanel.add(descriptionLabel);    formPanel.add(descriptionField);
+        // Add components to form panel
+        formPanel.add(idLabel);        formPanel.add(idField);
+        formPanel.add(nameLabel);      formPanel.add(nameField);
+        formPanel.add(ageLabel);       formPanel.add(ageCombo);
+        formPanel.add(episodesLabel);  formPanel.add(episodesField);
+        formPanel.add(descriptionLabel); formPanel.add(descriptionField);
 
         return formPanel;
     }
 
+    /**
+     * Builds the metadata panel, reading the values from the form fields.
+     * @param seriesId The generated series ID
+     * @return JPanel containing metadata about the series
+     */
     public JPanel getMetadataPanel(String seriesId) 
     {
-        JPanel metaPanel = new JPanel(new GridLayout(3, 1));
-        metaPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        JPanel metaPanel = new JPanel(new GridLayout(6, 1));
+        metaPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
+        // Always show date, user, and series ID
         JLabel dateLabel = new JLabel("Date: " + LocalDate.now());
         JLabel userLabel = new JLabel("User: " + loggedInUser);
         JLabel idLabel = new JLabel("Series ID: " + seriesId);
 
+        // Read data from instance form fields
+        JLabel nameLabel = new JLabel("Series Name: " + 
+                                      (nameField.getText().isEmpty() ? "<empty>" : nameField.getText()));
+        JLabel ageLabel = new JLabel("Age Restriction: " + ageCombo.getSelectedItem());
+        JLabel episodesLabel = new JLabel("Episodes: " + 
+                                         (episodesField.getText().isEmpty() ? "<empty>" : episodesField.getText()));
+        JLabel descriptionLabel = new JLabel("Description: " + 
+                                            (descriptionField.getText().isEmpty() ? "<empty>" : descriptionField.getText()));
+
+        // Add labels to metadata panel
         metaPanel.add(dateLabel);
         metaPanel.add(userLabel);
         metaPanel.add(idLabel);
+        metaPanel.add(nameLabel);
+        metaPanel.add(ageLabel);
+        metaPanel.add(episodesLabel);
+        metaPanel.add(descriptionLabel);
 
         return metaPanel;
     }
 
-    private String generateSeriesId() 
+    /**
+     * Generates a unique Series ID using current time in milliseconds.
+     */
+    public String generateSeriesId() 
     {
         return "SER" + System.currentTimeMillis();
     }
