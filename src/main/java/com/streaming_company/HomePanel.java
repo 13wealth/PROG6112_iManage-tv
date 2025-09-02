@@ -13,7 +13,7 @@ public class HomePanel extends JPanel                                           
     private TopPanel topPanel;
     private MainContentPanel mainContentPanel;                                                    //-Declares the main content panel
 
-    public HomePanel(String fullName) 
+    public HomePanel() 
     {
         setLayout(new BorderLayout());                                                              //-Sets a layout manager
 
@@ -32,7 +32,7 @@ public class HomePanel extends JPanel                                           
         add(rightPanel, BorderLayout.EAST);                                                         //-Adds the right panel to the right side
 
 //============================= TOP PANEL=============================//
-        topPanel = new TopPanel(fullName);                                                          //-Creates a new instance of TopPanel and assigns it to topPanel
+        topPanel = new TopPanel();                                                          //-Creates a new instance of TopPanel and assigns it to topPanel
 
         add(topPanel, BorderLayout.NORTH);
 

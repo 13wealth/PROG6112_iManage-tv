@@ -19,7 +19,7 @@ public class TopPanel extends JPanel
     private JLabel welcomeNote;
     private JLabel dateTime;
 
-    public TopPanel(String user) 
+    public TopPanel() 
     {
 //-Step 1: Set layout and background for top panel
         setLayout(new GridLayout(1, 3, 10, 10));                                                    //-Panel structure: 1 row, 3 columns, 10 pixels horizontal and vertical spacing
@@ -38,7 +38,7 @@ public class TopPanel extends JPanel
             add(appLogo);                                                                           //-Adds the application logo to the panel
 
     //-2. Welcome Note
-            welcomeNote = new JLabel("Welcome, " + user + "!");
+            welcomeNote = new JLabel("Welcome to iManageTV!");
             welcomeNote.setFont(new Font("Arial", Font.PLAIN, 16));
             welcomeNote.setForeground(Color.LIGHT_GRAY);
             welcomeNote.setHorizontalAlignment(SwingConstants.CENTER);
