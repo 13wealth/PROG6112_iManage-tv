@@ -16,17 +16,19 @@ public class SidebarPanel extends JPanel                                        
 
     /**
      * Constructor for SidebarPanel
+     * Sets a layout for the sidepanel and initializes buttons
      */
     public SidebarPanel() 
     {
-        setLayout(new GridLayout(6, 1, 10, 10));
+//-Step 1: Set layout for sidebar panel
+        setLayout(new GridLayout(6, 1, 10, 10));                                                    //-Panel structure: 6 rows, 1 column, 10 pixels horizontal and vertical spacing
 
-//-Step 1: Adds Button labels to an array
+//-Step 2: Adds Button labels to an array
         String[] labels = { "Add Series", "View Series", "Update Series", 
                             "Delete Series", "Reports", "Logout" 
                           };
 
-//-Step 2: Create and style buttons using a loop
+//-Step 3: Create and style buttons using a loop
         for (String label : labels) {
             JButton btn = new JButton(label);                                                       //-Declares and Creates a new button
             styleButton(btn);                                                                       //-Calls the styleButton method and applies styling to the new button created above
@@ -40,7 +42,7 @@ public class SidebarPanel extends JPanel                                        
      * Method to style buttons consistently
      * @param button
      */
-    private void styleButton(JButton button) 
+    private void styleButton(JButton button)                                                        //-Calls styleButton method above and applies consistent styling
     {
         button.setFocusPainted(false);
         button.setBackground(new Color(60, 60, 60));

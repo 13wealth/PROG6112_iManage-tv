@@ -1,16 +1,15 @@
 package com.streaming_company;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.io.File;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.InputStream;
+import java.net.URL;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.border.BevelBorder;
 
 public class UIHelper 
 {
@@ -26,9 +25,9 @@ public class UIHelper
             JOptionPane.showMessageDialog(null, "Thank you for visiting iManage-Tv",
                                                     "EXIT",JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
-            
         }
     }
+
 
     /**
      * Show a confirmation dialog and exit if OK is not pressed
@@ -42,7 +41,6 @@ public class UIHelper
             JOptionPane.showMessageDialog(null, "Thank you for visiting iManage-Tv",
                                                     "EXIT",JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
-            
         }
     }
 
@@ -53,86 +51,66 @@ public class UIHelper
             exitIfNotOk(response);
     }
 
-    /**
-     * Styles a JButton with specified colors.
-     * @param button
-     * @param baseColor
-     * @param hoverColor
+
+     /**
+     * Code logic was assisted by OpenAI.
+     * Sets the application icon for the specified JFrame.
+     * Method reads the icon image from a class path to safely access even after packaging into JAR.
+     * @param frame
+     * @param iconPath
      */
-    public static void styleButton(JButton button, Color baseColor, Color hoverColor) 
+    public static void setAppIcon(JFrame frame, String iconPath) 
     {
-        button.setFocusPainted(false);
-        button.setBorderPainted(true);
-        button.setContentAreaFilled(true);
-        button.setOpaque(true);
-        button.setBackground(baseColor);
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Aptos", Font.BOLD, 12));
-        button.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-
-        button.addMouseListener(new java.awt.event.MouseAdapter() 
+        URL iconURL = UIHelper.class.getResource(iconPath);                                         //-Gets the icon URL from the classpath
+        if (iconURL != null) 
         {
-            public void mouseEntered(java.awt.event.MouseEvent evt) 
-            {
-                button.setBackground(hoverColor);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) 
-            {
-                button.setBackground(baseColor);
-            }
-        });
-    }
-
-    /**
-     * Styles the sidebar buttons with specified colors.
-     * @param button
-     * @param baseColor
-     * @param hoverColor
-     */    
-    public static void styleSideBarButton(JButton button, Color baseColor, Color hoverColor) 
-    {
-        button.setFocusPainted(false);
-        button.setBorderPainted(true);
-        button.setContentAreaFilled(true);
-        button.setOpaque(true);
-        button.setBackground(baseColor);
-        button.setForeground(Color.WHITE);
-        button.setFont(new Font("Aptos", Font.BOLD, 14));
-
-        //Combine bevel + padding using compound border
-        button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createBevelBorder(BevelBorder.RAISED),     // outer bevel
-            BorderFactory.createEmptyBorder(10, 20, 10, 20)           // inner padding
-        ));
-        button.addMouseListener(new java.awt.event.MouseAdapter() 
-        {
-            public void mouseEntered(java.awt.event.MouseEvent evt) 
-            {
-                button.setBackground(hoverColor); // Use passed hoverColor
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) 
-            {
-                button.setBackground(baseColor); // Use passed baseColor
-            }
-        });
-    }
-
-    /**
-     * Plays a welcome tone from a specified file.
-     * @param fileName
-     */
-    public static void playWelcomeTone(String fileName) 
-    {
-        try 
-        {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(fileName));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-        } catch (Exception e) {
-            System.out.println("Error playing sound: " + e.getMessage());
+            frame.setIconImage(new ImageIcon(iconURL).getImage());                                  //-Sets the application icon
+        } else {
+            System.err.println("Icon not found");
         }
     }
+    
+
+    /**
+     * Code logic was assisted by OpenAI.
+     * Plays a welcome tone when the app launches.
+     * Method reads the sound file from a class path to safely access even after packaging into JAR.
+     * @param soundPath
+     */
+    public static void playWelcomeTone(String soundPath) 
+    {
+        try (InputStream soundStream = UIHelper.class.getResourceAsStream(soundPath))               //-Reads the sound file from the classpath
+                                                                                                    //-try/catch (try-with-resource catches and handles the exceptions thrown by AudioSystem.getAudioInputStream(soundStream) and  Clip clip = AudioSystem.getClip()
+        {
+            if (soundStream != null) 
+            {
+                Clip clip = AudioSystem.getClip();
+                clip.open(AudioSystem.getAudioInputStream(soundStream));
+                clip.start();
+            } else {
+                System.err.println("Sound not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();                                                                    //-Prints all the exceptions and methods that caused the error
+        }
+    }
+
+
+    /**
+     * Adapts the JFrame to any screen size.
+     * @param frame
+     */
+    public static void adaptScreen(JFrame frame)
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();                         //-Gets the screen size
+        int width = screenSize.width;
+        int height = screenSize.height;
+        frame.setSize(width, height);                                                               //-Sets the initial size of the application window to full screen
+    }
 }
+
+/**
+ * References
+ * OpenAI. (2025, September 01). *ChatGPT* (Version GPT-4) [Large language model]. https://chat.openai.com/chat
+ *
+ */
