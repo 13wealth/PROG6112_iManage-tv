@@ -33,7 +33,7 @@ public class AddSeries
      */
     public JPanel getMainFormPanel() 
     {
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));                                //-Creates a form 5 rows, 2 columns
         formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
         // Series ID (auto-generated, non-editable)

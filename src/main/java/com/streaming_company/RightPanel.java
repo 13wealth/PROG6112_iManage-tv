@@ -7,32 +7,34 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class RightPanel extends JPanel {   // Right panel inherits JPanel
+public class RightPanel extends JPanel 
+{                                                            //-Right panel inherits JPanel
 
-    private JLabel lblUser;
-    private JLabel lblDate;
-    private JLabel lblSeriesId;
+    private JLabel user;
+    private JLabel date;
+    private JLabel seriesId;
 
     public RightPanel() 
-    {                  // Constructor, not a JPanel method
+    {                  
        
-        JLabel lblHeader = new JLabel("📋 Metadata");
-        lblHeader.setFont(new Font("Arial", Font.BOLD, 14));
-        lblHeader.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel header = new JLabel("📋 Metadata");
+        
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        lblUser = new JLabel("User: ---");
-        lblDate = new JLabel("Date: ---");
-        lblSeriesId = new JLabel("Series ID: ---");
+        user = new JLabel("User: ---");
+        date = new JLabel("Date: ---");
+        seriesId = new JLabel("Series ID: ---");
 
-        add(lblHeader);
+        add(header);
         add(Box.createVerticalStrut(15));
-        add(lblUser);
-        add(lblDate);
-        add(lblSeriesId);
+        add(user);
+        add(date);
+        add(seriesId);
     }
 
     // Getters so HomePanel (or future logic) can update labels
-    public JLabel getLblUser() { return lblUser; }
-    public JLabel getLblDate() { return lblDate; }
-    public JLabel getLblSeriesId() { return lblSeriesId; }
+    public JLabel getUser() { return user; }
+    public JLabel getDate() { return date; }
+    public JLabel getSeriesId() { return seriesId; }
 }
