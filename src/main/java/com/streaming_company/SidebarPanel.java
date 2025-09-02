@@ -29,7 +29,8 @@ public class SidebarPanel extends JPanel                                        
                           };
 
 //-Step 3: Create and style buttons using a loop
-        for (String label : labels) {
+        for (String label : labels) 
+        {
             JButton btn = new JButton(label);                                                       //-Declares and Creates a new button
             styleButton(btn);                                                                       //-Calls the styleButton method and applies styling to the new button created above
             buttons.put(label, btn);                                                                //-Stores button in map for easy access 

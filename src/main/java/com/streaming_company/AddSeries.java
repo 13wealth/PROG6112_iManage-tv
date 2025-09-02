@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AddSeries 
+public class AddSeries extends JPanel
 {
     private String loggedInUser;
 
-    //--- Instance variables for form fields (so metadata can read them)
+    //-Instance variables for form fields (so metadata can read them)
     private JTextField nameField;
     private JComboBox<String> ageCombo;
     private JTextField episodesField;
@@ -28,10 +28,9 @@ public class AddSeries
 
     /**
      * Builds the main form panel when "Add Series" is clicked.
-     * The form fields are assigned to instance variables so their data
-     * can be read later for metadata or JSON storage.
+     * Saves the form fields as variables so can use their values later, for metadata or store JSON.
      */
-    public JPanel getMainFormPanel() 
+    public JPanel addSeriesLogic() 
     {
         JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));                                //-Creates a form 5 rows, 2 columns
         formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));

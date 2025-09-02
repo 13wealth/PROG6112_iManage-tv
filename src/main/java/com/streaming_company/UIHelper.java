@@ -22,7 +22,7 @@ public class UIHelper
     {
         if(input == null)
         {
-            JOptionPane.showMessageDialog(null, "Thank you for visiting iManage-Tv",
+            JOptionPane.showMessageDialog(null, "Thank you for using iManageTV",
                                                     "EXIT",JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
         }
@@ -38,7 +38,7 @@ public class UIHelper
     {
         if(input != JOptionPane.OK_OPTION)
         {
-            JOptionPane.showMessageDialog(null, "Thank you for visiting iManage-Tv",
+            JOptionPane.showMessageDialog(null, "Thank you for using iManageTV",
                                                     "EXIT",JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
         }
