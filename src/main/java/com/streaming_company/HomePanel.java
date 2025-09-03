@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class HomePanel extends JPanel                                                               //-Main panel inherits JPanel
@@ -11,7 +13,7 @@ public class HomePanel extends JPanel                                           
     private SidebarPanel sidebarPanel;                                                              //-Declares the sidebar panel
     private RightPanel rightPanel;                                                                  //-Declares the right panel
     private TopPanel topPanel;
-    private MainContentPanel mainContentPanel;                                                    //-Declares the main content panel
+    private MainContentPanel mainContentPanel;                                                      //-Declares the main content panel
 
     public HomePanel() 
     {
@@ -24,15 +26,43 @@ public class HomePanel extends JPanel                                           
 
         add(sidebarPanel, BorderLayout.WEST);                                                       //-Adds the sidebar panel to the left side of the main panel
 
+        JButton sidebarButton = sidebarPanel.getAddButton();
+        sidebarButton.addActionListener(e -> 
+        {
+    // Step 1: Create AddSeries form
+    AddSeries addSeriesForm = new AddSeries();
+
+    // Step 2: Swap mainContentPanel with the form
+    mainContentPanel.removeAll();
+    mainContentPanel.add(addSeriesForm);
+    mainContentPanel.revalidate();
+    mainContentPanel.repaint();
+
+    // Step 3: Handle form submission
+    addSeriesForm.getSubmitButton().addActionListener(ev -> {
+        // Retrieve captured data
+        String[] capturedData = addSeriesForm.getSeriesData();                                      //Getter from AddSeries that retrieves user input
+    //Update right panel with retrieved data
+        rightPanel.setData(capturedData);                                                           /*A setter from RightPanel that takes retrieved data
+                                                                                                      from getSeriesData() and updates the right panel with it*/
+
+        // Feedback
+        JOptionPane.showMessageDialog(null, "Series added successfully!");
+
+        // Optionally reset or disable the form
+        addSeriesForm.getSubmitButton().setEnabled(false);
+    });
+});
+
 //============================= RIGHT BAR=============================//
         rightPanel = new RightPanel();                                                              //-Creates a new instance of RightPanel and assigns it to rightPanel
-        rightPanel.setPreferredSize(new Dimension(300, 0));                                         //-Sets preferred size for right panel
+        rightPanel.setPreferredSize(new Dimension(600, 0));                                         //-Sets preferred size for right panel
         rightPanel.setBackground(new Color(230, 230, 230));
 
         add(rightPanel, BorderLayout.EAST);                                                         //-Adds the right panel to the right side
 
 //============================= TOP PANEL=============================//
-        topPanel = new TopPanel();                                                          //-Creates a new instance of TopPanel and assigns it to topPanel
+        topPanel = new TopPanel();                                                                  //-Creates a new instance of TopPanel and assigns it to topPanel
 
         add(topPanel, BorderLayout.NORTH);
 
@@ -41,6 +71,8 @@ public class HomePanel extends JPanel                                           
 
         add(mainContentPanel, BorderLayout.CENTER);                                                 //-Adds the main content panel to the center of the main panel
     }
+
+    
 /**
 * Exposes SidebarPanel for navigation logic
 * Exposes RightPanel for metadata display

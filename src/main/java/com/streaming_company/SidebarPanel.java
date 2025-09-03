@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class SidebarPanel extends JPanel                                                            //-Sidebar panel inherits JPanel
 {
-    private Map<String, JButton> buttons = new LinkedHashMap<>();                                   //-Maintains insertion order
+    private Map<String, JButton> sidebarButton = new LinkedHashMap<>();                                   //-Maintains insertion order
 
     /**
      * Constructor for SidebarPanel
@@ -24,8 +24,12 @@ public class SidebarPanel extends JPanel                                        
         setLayout(new GridLayout(6, 1, 10, 10));                                                    //-Panel structure: 6 rows, 1 column, 10 pixels horizontal and vertical spacing
 
 //-Step 2: Adds Button labels to an array
-        String[] labels = { "Add Series", "View Series", "Update Series", 
-                            "Delete Series", "Reports", "Logout" 
+        String[] labels = { "Add Series", 
+                            "View Series", 
+                            "Update Series", 
+                            "Delete Series", 
+                            "Reports", 
+                            "Logout" 
                           };
 
 //-Step 3: Create and style buttons using a loop
@@ -33,7 +37,7 @@ public class SidebarPanel extends JPanel                                        
         {
             JButton btn = new JButton(label);                                                       //-Declares and Creates a new button
             styleButton(btn);                                                                       //-Calls the styleButton method and applies styling to the new button created above
-            buttons.put(label, btn);                                                                //-Stores button in map for easy access 
+            sidebarButton.put(label, btn);                                                                //-Stores button in map for easy access 
             add(btn);                                                                               //-Adds button to the panel
         }
     }
@@ -57,42 +61,39 @@ public class SidebarPanel extends JPanel                                        
             BorderFactory.createEmptyBorder(10, 20, 10, 20)
     ));*/
 //-Adds a hover effect to the button
-    button.addMouseListener(new java.awt.event.MouseAdapter() 
-    {
-        @Override                                                                                   //-Indicates an override of the JPanel attributes
-        public void mouseEntered(java.awt.event.MouseEvent evt) 
+        button.addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            button.setBackground(new Color(90, 90, 90));                                            //-Lighter when hover on a button
-        }
+            @Override                                                                                   //-Indicates an override of the JPanel attributes
+            public void mouseEntered(java.awt.event.MouseEvent evt) 
+            {
+                button.setBackground(new Color(90, 90, 90));                                            //-Lighter when hover on a button
+            }
 
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) 
-        {
-            button.setBackground(new Color(60, 60, 60));                                            //-Restore original once mouse exits
-        }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) 
+            {
+                button.setBackground(new Color(60, 60, 60));                                            //-Restore original once mouse exits
+            }
 
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) 
-        {
-            button.setBorder(BorderFactory.createBevelBorder(0, Color.DARK_GRAY, Color.GRAY));      //-Creates this event when the mouse is pressed
-        }
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) 
+            {
+                button.setBorder(BorderFactory.createBevelBorder(0, Color.DARK_GRAY, Color.GRAY));      //-Creates this event when the mouse is pressed
+            }
 
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-            button.setBorder(BorderFactory.createBevelBorder(1, Color.LIGHT_GRAY, Color.DARK_GRAY)); //-Creates this event when the mouse is released
-        }
-    });
-}
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                button.setBorder(BorderFactory.createBevelBorder(1, Color.LIGHT_GRAY, Color.DARK_GRAY)); //-Creates this event when the mouse is released
+            }
+        });
+    }
 
     /**
      * Getter for HomePanel to attach navigation logic
      * @param name
      * @return
      */
-    public JButton getButton(String name)
-    {
-        return buttons.get(name);
-    }
+    public JButton getAddButton() { return sidebarButton.get("Add Series"); }
 }
 
 
