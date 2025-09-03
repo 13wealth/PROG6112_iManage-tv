@@ -39,7 +39,7 @@ public class TopPanel extends JPanel
 
     //-2. Welcome Note
             welcomeNote = new JLabel("Welcome to iManageTV!");
-            welcomeNote.setFont(new Font("Arial", Font.PLAIN, 16));
+            welcomeNote.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));
             welcomeNote.setForeground(Color.LIGHT_GRAY);
             welcomeNote.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -49,7 +49,7 @@ public class TopPanel extends JPanel
             dateTime = new JLabel("Date and Time");
             dateTime.setFont(new Font("Arial", Font.PLAIN, 16));
             dateTime.setForeground(Color.LIGHT_GRAY);
-            dateTime.setHorizontalAlignment(SwingConstants.RIGHT);
+            dateTime.setHorizontalAlignment(SwingConstants.CENTER);
 
             add(dateTime);                                                                          //-Adds the date and time label to the panel
 
@@ -57,6 +57,7 @@ public class TopPanel extends JPanel
     }
 
      /**
+     * Adding a clock code was assisted by OpenAI
      * Updates the date/time label every second.
      */
     private void startClock() 
@@ -79,3 +80,10 @@ public class TopPanel extends JPanel
     public JLabel getWelcome() { return welcomeNote; }
     public JLabel getDateTime() { return dateTime; }
 }
+
+
+/**
+ * References
+ * OpenAI. (2025, September 02). *ChatGPT* (Version GPT-4) [Large language model]. https://chat.openai.com/chat
+ *
+ */

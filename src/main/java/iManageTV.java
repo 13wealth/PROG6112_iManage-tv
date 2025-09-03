@@ -1,8 +1,9 @@
 
+
+///import com.streaming_company.AppLauncher;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import com.streaming_company.AppLauncher;
 import com.streaming_company.HomePanel;
 import com.streaming_company.UIHelper;
 
@@ -10,14 +11,14 @@ public class iManageTV
 {
     public static void main(String[] args) 
     {
-            AppLauncher.startMenu();                                                                //-Call this app launcher method to validate user choice
-            UIHelper.playWelcomeTone("/sounds/welcome2.wav");                             //-Plays a welcome tone when the application starts
+        ///AppLauncher.startMenu();                                                                //-Call this app launcher method to validate user choice
+            ///UIHelper.playWelcomeTone("/sounds/welcome2.wav");                             //-Plays a welcome tone when the application starts
             SwingUtilities.invokeLater(() -> {                                                      /*This ensures that JFrame creation and showing the GUI happens on the correct thread.
                                                                                                       Best practice not to draw and update GUI components directly in the main method 
                                                                                                       to avoid potential threading issues.
                                                                                                       THREAD: A mini-program running inside your bigger program/main*/       
             JFrame appWindow = new JFrame("Your Shows, Your Control!");                             //-Creates JFrame application window called "appWindow"
-        //-Fill JFrame with components from different classes
+    //-Fill JFrame with components from different classes
             UIHelper.setAppIcon(appWindow, "/images/iM_icon.png");                         //-Sets the application icon when the application starts
             UIHelper.adaptScreen(appWindow);                                                        //-Adapts the JFrame to any screen size
             appWindow.setLocationRelativeTo(null);                                                  //-Centers the frame on the screen

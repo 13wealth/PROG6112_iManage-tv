@@ -1,116 +1,125 @@
 package com.streaming_company;
 
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.time.LocalDate;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class AddSeries extends JPanel
 {
-    private String loggedInUser;
-
-    //-Instance variables for form fields (so metadata can read them)
-    private JTextField nameField;
-    private JComboBox<String> ageCombo;
-    private JTextField episodesField;
-    private JTextField descriptionField;
-
-    public AddSeries(String loggedInUser) 
-    {
-        this.loggedInUser = loggedInUser;
-    }
+    private JLabel idTitle, nameTitle, ageTitle, episodesTitle, descriptionTitle;                   //-Labels that go inside column 1
+    private JTextField idField, nameField, episodesField;                                           //-Text fields that go inside column 2
+    private JTextArea descriptionField;                                                             //-Text area for description larger than other fields
+    private JComboBox<String> ageField;                                                             //-Combo box for selecting age restrictions
+    private JButton submitButton;                                                                   //-Button to submit the form
 
     /**
-     * Builds the main form panel when "Add Series" is clicked.
-     * Saves the form fields as variables so can use their values later, for metadata or store JSON.
+     * Constructor for a form panel that goes in the main content area
+     * Handles all input fields, generates a unique Series ID, and can returns captured data.
+     * 
      */
-    public JPanel addSeriesLogic() 
+    public AddSeries() 
     {
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));                                //-Creates a form 5 rows, 2 columns
-        formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Series ID (auto-generated, non-editable)
-        JLabel idLabel = new JLabel("Series ID:");
-        JTextArea idField = new JTextArea(generateSeriesId() + 
-                                          "\nCaptured by: " + loggedInUser +
-                                          "\nDate: " + LocalDate.now());
+        // Helper method for uniform row addition
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Series ID
+        idTitle = new JLabel("Series ID:");
+        idField = new JTextField(generateSeriesId());
         idField.setEditable(false);
-        idField.setLineWrap(true);
-        idField.setWrapStyleWord(true);
+        idField.setBackground(new Color(230, 230, 230));
+        addRow(idTitle, idField, gbc, 0, 0.0);
 
         // Series Name
-        JLabel nameLabel = new JLabel("Series Name:");
-        nameField = new JTextField();  // <-- instance variable
+        nameTitle = new JLabel("Series Name:");
+        nameField = new JTextField();
+        addRow(nameTitle, nameField, gbc, 1, 0.0);
 
-        // Age Restriction
-        JLabel ageLabel = new JLabel("Age Restriction:");
-        ageCombo = new JComboBox<>(new String[]{"All", "13", "16", "18"}); // <-- instance variable
+        // Series Age
+        ageTitle = new JLabel("Series Age:");
+        String[] ageBands = {"All Ages", "10", "12", "16", "18"};
+        ageField = new JComboBox<>(ageBands);
+        addRow(ageTitle, ageField, gbc, 2, 0.0);
 
-        // Number of Episodes
-        JLabel episodesLabel = new JLabel("Number of Episodes:");
-        episodesField = new JTextField(); // <-- instance variable
+        // Episodes
+        episodesTitle = new JLabel("Episodes:");
+        episodesField = new JTextField();
+        addRow(episodesTitle, episodesField, gbc, 3, 0.0);
 
-        // Description
-        JLabel descriptionLabel = new JLabel("Description:");
-        descriptionField = new JTextField(); // <-- instance variable
+        // Description (expandable)
+        descriptionTitle = new JLabel("Description:");
+        descriptionField = new JTextArea(10, 20); // more rows
+        descriptionField.setLineWrap(true);
+        descriptionField.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(descriptionField);
 
-        // Add components to form panel
-        formPanel.add(idLabel);        formPanel.add(idField);
-        formPanel.add(nameLabel);      formPanel.add(nameField);
-        formPanel.add(ageLabel);       formPanel.add(ageCombo);
-        formPanel.add(episodesLabel);  formPanel.add(episodesField);
-        formPanel.add(descriptionLabel); formPanel.add(descriptionField);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0.2;
+        gbc.weighty = 1.0;             // let this row expand vertically
+        gbc.fill = GridBagConstraints.BOTH;
+        add(descriptionTitle, gbc);
 
-        return formPanel;
+        gbc.gridx = 1;
+        gbc.weightx = 0.8;
+        gbc.weighty = 1.0;
+        add(scrollPane, gbc);
+
+        // Submit button (small, original size)
+        submitButton = new JButton("Submit");
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.weightx = 0.0;
+        gbc.weighty = 0.0;             // do not expand vertically
+        gbc.fill = GridBagConstraints.NONE; // keep original size
+        gbc.anchor = GridBagConstraints.LINE_END; // align right
+        add(submitButton, gbc);
     }
 
-    /**
-     * Builds the metadata panel, reading the values from the form fields.
-     * @param seriesId The generated series ID
-     * @return JPanel containing metadata about the series
-     */
-    public JPanel getMetadataPanel(String seriesId) 
+    private void addRow(JComponent label, JComponent field, GridBagConstraints gbc, int row, double weightY) 
     {
-        JPanel metaPanel = new JPanel(new GridLayout(6, 1));
-        metaPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.2;
+        gbc.weighty = weightY;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(label, gbc);
 
-        // Always show date, user, and series ID
-        JLabel dateLabel = new JLabel("Date: " + LocalDate.now());
-        JLabel userLabel = new JLabel("User: " + loggedInUser);
-        JLabel idLabel = new JLabel("Series ID: " + seriesId);
-
-        // Read data from instance form fields
-        JLabel nameLabel = new JLabel("Series Name: " + 
-                                      (nameField.getText().isEmpty() ? "<empty>" : nameField.getText()));
-        JLabel ageLabel = new JLabel("Age Restriction: " + ageCombo.getSelectedItem());
-        JLabel episodesLabel = new JLabel("Episodes: " + 
-                                         (episodesField.getText().isEmpty() ? "<empty>" : episodesField.getText()));
-        JLabel descriptionLabel = new JLabel("Description: " + 
-                                            (descriptionField.getText().isEmpty() ? "<empty>" : descriptionField.getText()));
-
-        // Add labels to metadata panel
-        metaPanel.add(dateLabel);
-        metaPanel.add(userLabel);
-        metaPanel.add(idLabel);
-        metaPanel.add(nameLabel);
-        metaPanel.add(ageLabel);
-        metaPanel.add(episodesLabel);
-        metaPanel.add(descriptionLabel);
-
-        return metaPanel;
+        gbc.gridx = 1;
+        gbc.weightx = 0.8;
+        add(field, gbc);
     }
 
-    /**
-     * Generates a unique Series ID using current time in milliseconds.
-     */
     public String generateSeriesId() 
     {
         return "SER" + System.currentTimeMillis();
     }
+
+    public String[] getSeriesData() 
+    {
+        return new String[] 
+        {
+            idField.getText(),
+            nameField.getText(),
+            (String) ageField.getSelectedItem(),
+            episodesField.getText(),
+            descriptionField.getText()
+        };
+    }
+
+    public JButton getSubmitButton() { return submitButton; }
 }
+

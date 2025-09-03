@@ -25,8 +25,8 @@ public class AppLauncher extends JPanel
     
     //-Step 1: Create an input panel for the menu. Adds a label and text field
             JPanel menuPanel = new JPanel(new GridLayout(0, 1));
-            menuPanel.add(new JLabel("<html> (1) Enter '1' to Launch the Application.<br> " +
-                                            "(2) Enter any other key to exit. </html>"));
+            menuPanel.add(new JLabel("<html> Enter '1' to Launch the Application.<br> " +
+                                            "Enter any other key to exit. </html>"));
             menuPanel.add(launchField);
 
     //-Step 2: Launch a dialog and pass the input to it
@@ -37,7 +37,7 @@ public class AppLauncher extends JPanel
                         JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.PLAIN_MESSAGE
                 );
-
+    //-Step 3: Run validations to handle the user input
                 if (result == JOptionPane.OK_OPTION)                                                //-If user clicks OK
                 {
                     menuChoice = launchField.getText().trim();                                      //-Go get the user input and store it in menuChoice
