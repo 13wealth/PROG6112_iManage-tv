@@ -15,9 +15,9 @@ import javax.swing.Timer;
 
 public class TopPanel extends JPanel
 {
-    private JLabel appLogo;
-    private JLabel welcomeNote;
-    private JLabel dateTime;
+    private final JLabel appLogo;
+    private final JLabel welcomeNote;
+    private final JLabel dateTime;
 
     public TopPanel() 
     {
@@ -80,6 +80,10 @@ public class TopPanel extends JPanel
     public JLabel getWelcome() { return welcomeNote; }
     public JLabel getDateTime() { return dateTime; }
 }
+
+
+
+
 
 
 /**
