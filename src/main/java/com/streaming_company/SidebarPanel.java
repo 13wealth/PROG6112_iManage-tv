@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class SidebarPanel extends JPanel                                                            //-Sidebar panel inherits JPanel
 {
-    private Map<String, JButton> sidebarButton = new LinkedHashMap<>();                                   //-Maintains insertion order
+    private final Map<String, JButton> sidebarButton = new LinkedHashMap<>();                                   //-Maintains insertion order
 
     /**
      * Constructor for SidebarPanel
@@ -25,7 +25,7 @@ public class SidebarPanel extends JPanel                                        
 
 //-Step 2: Adds Button labels to an array
         String[] labels = { "Add Series", 
-                            "View Series", 
+                            "Search Series", 
                             "Update Series", 
                             "Delete Series", 
                             "Reports", 

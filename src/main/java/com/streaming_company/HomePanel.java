@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 public class HomePanel extends JPanel                                                               //-Main panel inherits JPanel
 {
     private SidebarPanel sidebarPanel;                                                              //-Declares the sidebar panel
+    private TopPanel topPanel;                                                                      //-Declares the top panel
     private RightPanel rightPanel;                                                                  //-Declares the right panel
-    private TopPanel topPanel;
     private MainContentPanel mainContentPanel;                                                      //-Declares the main content panel
 
     public HomePanel() 
@@ -20,7 +20,7 @@ public class HomePanel extends JPanel                                           
         setLayout(new BorderLayout());                                                              //-Sets a layout manager
 
 //============================= SIDE BAR=============================//
-        sidebarPanel = new SidebarPanel();                                                          //-Creates a new instance of SidebarPanel and assigns it to sidebarPanel
+        sidebarPanel = new SidebarPanel();                                                          //-Creates an instance of SidebarPanel and assigns it to sidebarPanel
         sidebarPanel.setBackground(new Color(30, 30, 30));
         sidebarPanel.setPreferredSize(new Dimension(180, 0));                                       //-Sets preferred size for sidebar panel
 
@@ -33,15 +33,12 @@ public class HomePanel extends JPanel                                           
     AddSeries addSeriesForm = new AddSeries();
 
     // Step 2: Swap mainContentPanel with the form
-    mainContentPanel.removeAll();
-    mainContentPanel.add(addSeriesForm);
-    mainContentPanel.revalidate();
-    mainContentPanel.repaint();
+    mainContentPanel.updateContent(addSeriesForm);
 
     // Step 3: Handle form submission
     addSeriesForm.getSubmitButton().addActionListener(ev -> {
         // Retrieve captured data
-        String[] capturedData = addSeriesForm.getSeriesData();                                      //Getter from AddSeries that retrieves user input
+        String[] capturedData = addSeriesForm.getData();                                      //Getter from AddSeries that retrieves user input
     //Update right panel with retrieved data
         rightPanel.setData(capturedData);                                                           /*A setter from RightPanel that takes retrieved data
                                                                                                       from getSeriesData() and updates the right panel with it*/
