@@ -24,6 +24,9 @@ public class RightPanel extends JPanel
     private final JLabel[] dataFields;                                                              //-Declares an array for data fields
     private final JTextArea descriptionField;                                                       //-Declares a text area for the description
 
+    /**
+     * This method initialises the right panel with metadata fields.
+     */
     public RightPanel() 
     {
         setLayout(new BorderLayout(10, 10));                                                        //-Sets layout manager with  horizontal and vertical gaps
@@ -135,11 +138,11 @@ public class RightPanel extends JPanel
 
     
     /**
-     * Saves the series data to a JSON file while the program runs
+     * Stores the series data to a JSON file while the program runs
      * Makes use of a temporary memory to store the existing file
      * @param panelData
      */
-    public void saveData(String[] panelData) 
+    public void storeData(String[] panelData) 
     {
         try 
         {
@@ -154,8 +157,8 @@ public class RightPanel extends JPanel
                         String existing = new String(buffer, 0, length);                            //-Creates a string from the temporary memory
                         seriesArray = new JSONArray(existing);                                      //-Parses the string into a JSON array
                     }
-            } catch (IOException e) {
-
+            } catch (IOException a) {
+                a.printStackTrace();
             }
 
         //-Create a new series object to hold the current series data
@@ -164,17 +167,16 @@ public class RightPanel extends JPanel
             series.put("Name", panelData[1]);
             series.put("AgeRestriction", panelData[2]);
             series.put("Episodes", panelData[3]);
-            ///series.put("Description", panelData[4]); //Has been excluded as it crushed the program due to created outside dataField.length Return 3 for JSON
 
         //-Parse the series object to the array and save
             seriesArray.put(series);                                                                //-Adds the series object to the array
-                try (FileWriter writeData = new FileWriter("AllSeries.json"))                          //-Writes the JSON array to the file
+                try (FileWriter writeData = new FileWriter("AllSeries.json"))                       //-Writes the JSON array to the file
                 {
                     writeData.write(seriesArray.toString(4));                          //-Formats the JSON output with an indentation of 4 spaces
                 }
 
-        } catch (java.io.IOException | org.json.JSONException e) {                                  //-Multi-catch for specific exceptions
-            e.printStackTrace();                                                                    //-Prints the trace LOG trace debugging
+        } catch (java.io.IOException | org.json.JSONException b) {                                  //-Multi-catch for specific exceptions
+                b.printStackTrace();                                                                //-Prints LOG for errors to help debug saving data to JSON
             JOptionPane.showMessageDialog(null, "Error saving series data!");
         }
     }

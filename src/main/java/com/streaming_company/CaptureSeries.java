@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,12 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AddSeries extends JPanel
+public class CaptureSeries extends JPanel
 {
     private final JLabel idTitle, nameTitle, ageTitle, episodesTitle, descriptionTitle;             //-Labels that go inside column 1
-    private final JTextField idField, nameField, episodesField;                                     //-Text fields that go inside column 2
-    private final JTextArea descriptionField;                                                       //-Text area for description larger than other fields
-    private final JComboBox<String> ageField;                                                       //-Combo box for selecting age restrictions
+    private final JTextField idField, nameField, ageField, episodesField;                                     //-Text fields that go inside column 2
+    private final JTextArea descriptionField;                                                       //-Text area for description larger than other fields                                                               //-Text area for age restrictions
     private final JButton submitButton;                                                             //-Button to submit the form
     private final JScrollPane descriptionScroll;                                                    //-Scroll pane for the description field
 
@@ -28,17 +26,17 @@ public class AddSeries extends JPanel
      * This form swaps the main content area when Add Series button is pressed.
      * Handles all input fields, generates a unique Series ID, and can returns captured data.
      */
-    public AddSeries() 
+    public CaptureSeries() 
     {
         setLayout(new GridBagLayout());                                                             //-Sets layout manager for the panel
         GridBagConstraints addButton = new GridBagConstraints();                                    //-Creates constraints/controls for the grid layout
-        addButton.insets = new Insets(5, 5, 5, 5);                                                  //-Sets padding for grid elements
+        addButton.insets = new Insets(5, 5, 5, 5);                                                  //-Sets padding for grid elements of 5 px
         addButton.fill = GridBagConstraints.HORIZONTAL;                                             //-Allows components to stretch horizontally
 
     //-Add the series model components
         //-Series ID
         idTitle = new JLabel("Series ID:");
-        idField = new JTextField(AddSeries.generateSeriesId());
+        idField = new JTextField(generateSeriesId());                                               //-Calls the static method to generate a unique Series ID
         idField.setEditable(false);
         idField.setBackground(new Color(230, 230, 230));
         addRow(idTitle, idField, addButton, 0, 0.0);                                    //-Calls the helper method to add the Series ID row and applies GridBagConstraints
@@ -49,9 +47,8 @@ public class AddSeries extends JPanel
         addRow(nameTitle, nameField, addButton, 1, 0.0);                                //-Position row:1 = row 2 on the UI
 
         //-Series Age Restriction
-        ageTitle = new JLabel("Series Age Restriction:");
-        String[] ageBands = {"All Ages", "10", "12", "16", "18"};
-        ageField = new JComboBox<>(ageBands);                                                       //-Creates a drop-down for selecting age restrictions
+        ageTitle = new JLabel("Age Restriction:");
+        ageField = new JTextField();
         addRow(ageTitle, ageField, addButton, 2, 0.0);                                  //-Adds label (Title) and field
 
         //-Episodes
@@ -126,7 +123,23 @@ public class AddSeries extends JPanel
     {
         return "SER" + System.currentTimeMillis();                                                  //-Generates a unique Series ID
     }
+    
 
+    /**
+     * This method resets all input fields in the form
+     * We calling the method in the HomePanel()
+     */
+    public void resetFields() 
+    {
+        nameField.setText("");
+        ageField.setText("");
+        episodesField.setText("");
+        descriptionField.setText("");
+    }
+
+    public void setSeriesId(String newId) {
+    idField.setText(newId);
+}
 
     /**
      * Getter method to retrieve the series data from the form
@@ -138,7 +151,7 @@ public class AddSeries extends JPanel
         {
             idField.getText(),
             nameField.getText(),
-            (String) ageField.getSelectedItem(),
+            ageField.getText(),
             episodesField.getText(),
             descriptionField.getText()
         };
