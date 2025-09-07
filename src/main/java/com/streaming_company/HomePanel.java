@@ -14,7 +14,6 @@ import javax.swing.JPanel;
         private TopPanel topPanel;                                                                  //-Declares the top panel
         private RightPanel rightPanel;                                                              //-Declares the right panel
         private MainContentPanel mainContentPanel;  
-        private RightPanel originalRightPanel;
         private JSONRightPanel jsonRightPanel;                                                      //-Declares the main content panel
 
         public HomePanel() 
@@ -51,84 +50,71 @@ import javax.swing.JPanel;
 
         
     //STEP 2: CREATE LOGIC AND ADD IT TO PANELS AND BUTTONS CREATED ABOVE       
-        //+++ CAPTURE SERIES OPTION
+        JButton addButton = sidebarPanel.getAddButton();
+        addButton.addActionListener(a -> {
+            remove(jsonRightPanel);                           // remove JSON panel if exists
+            add(rightPanel, BorderLayout.EAST);       // restore original right panel
+            revalidate();
+            repaint();
 
-        //-Step 1: Create AddSeries form and update main content panel
-            JButton addButton = sidebarPanel.getAddButton();                                        //-From SidebarPanel(): Get the empty "Capture Series" button
-            addButton.addActionListener(a -> 
-            {
-                remove(jsonRightPanel); 
-                add(originalRightPanel, BorderLayout.EAST);
-                revalidate();
-                repaint();
-                rightPanel.setData(new String[] {"", "", "", "", ""});                              //-Clears the right panel before displaying new data
-                CaptureSeries addSeriesForm = new CaptureSeries();                                  //-Create and CaptureSeries object called addSeriesForm
-                mainContentPanel.updateContent(addSeriesForm);                                      //-Swaps the main content panel with the CaptureSeries form
+            rightPanel.setData(new String[] {"", "", "", "", ""});
+            CaptureSeries addSeriesForm = new CaptureSeries();
+            mainContentPanel.updateContent(addSeriesForm);
 
-        //-Step 2: Handles form submission
-                addSeriesForm.getSubmitButton().addActionListener(b ->                              //-Logic that takes place when submit button is clicked
-                {
-                    String[] capturedData = addSeriesForm.getData();                                //-Getter from CaptureSeries that retrieves user input
-                    String age = capturedData[2];
-                    String episodes = capturedData[3];
-                    if (!Validations.validateData(age, episodes)) return;                           //-Validates the data before proceeding
-                    rightPanel.setData(capturedData);                                               //-Setter from RightPanel that updates the right panel with it
-                    addSeriesForm.getSubmitButton().setEnabled(true);                               //-Disables the submit button after submission
+            addSeriesForm.getSubmitButton().addActionListener(b -> {
+                String[] capturedData = addSeriesForm.getData();
+                String age = capturedData[2];
+                String episodes = capturedData[3];
+                if (!Validations.validateData(age, episodes)) return;
 
-                    JOptionPane.showMessageDialog(null, "Series added successfully!");              //-Gives feedback to the user        
-        
-        //-Step 3: Retrieve the data and save it to the JSON file
-                    String [] rightPanelData = rightPanel.getData();                                //-Gets data from the right panel
-                    rightPanel.storeData(rightPanelData);                                           //-Stores the data in the JSON file
+                rightPanel.setData(capturedData);
+                addSeriesForm.getSubmitButton().setEnabled(true);
 
-        //-Step 4: Reset the panels and generate a new Series ID
-                addSeriesForm.resetFields();                                                        //-Reset data fields in the Series form
-                addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());                        //-Generates a new Series ID
-                });
+                JOptionPane.showMessageDialog(null, "Series added successfully!");
+                rightPanel.storeData(rightPanel.getData());
+
+                addSeriesForm.resetFields();
+                addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());
             });
+        });
 
-        //+++ SEARCH SERIES OPTION
+        // --- SEARCH SERIES
+        JButton searchSeriesButton = sidebarPanel.getSearchButton();
+        searchSeriesButton.addActionListener(a -> {
+            remove(jsonRightPanel);
+            add(rightPanel, BorderLayout.EAST);
+            revalidate();
+            repaint();
 
-            JButton searchSeriesButton = sidebarPanel.getSearchButton();
-            searchSeriesButton.addActionListener(a -> 
-            {
-                rightPanel.setData(new String[] {"", "", "", "", ""});                              //-Clears the right panel before displaying new data
-                SearchSeries form = new SearchSeries();                                             //-Create a new SearchSeries form
-                mainContentPanel.updateContent(form);                                               //-Show the search form in main panel
+            rightPanel.setData(new String[] {"", "", "", "", ""});
+            SearchSeries form = new SearchSeries();
+            mainContentPanel.updateContent(form);
 
-                form.getSearchButton().addActionListener(b -> 
-                {
-                    String seriesId = form.getSeriesId();                                           //-Gets the Series ID from the form
-                    String[] capturedData = SearchSeries.searchByID(seriesId);                      //-Calls the method that searches the JSON file by Series ID
-                    rightPanel.setData(capturedData);
-
-                });
+            form.getSearchButton().addActionListener(b -> {
+                String seriesId = form.getSeriesId();
+                String[] capturedData = SearchSeries.searchByID(seriesId);
+                rightPanel.setData(capturedData);
             });
+        });
 
-        //+++ UPDATE SERIES OPTION
+        // --- UPDATE SERIES
+        JButton updateButton = sidebarPanel.getUpdateButton();
+        updateButton.addActionListener(a -> {
+            remove(rightPanel);
 
-            JButton updateButton = sidebarPanel.getUpdateButton();
-            updateButton.addActionListener(a -> {
-                // Remove the default right panel
-                remove(rightPanel);
+            jsonRightPanel = new JSONRightPanel();
+            add(jsonRightPanel, BorderLayout.EAST);
 
-                // Create and add the update-only right panel
-                JSONRightPanel updateRightPanel = new JSONRightPanel();
-                add(updateRightPanel, BorderLayout.EAST);
+            UpdateSeries updateForm = new UpdateSeries();
+            mainContentPanel.updateContent(updateForm);
 
-                // Show the UpdateSeries form in the main content panel
-                UpdateSeries updateForm = new UpdateSeries();
-                mainContentPanel.updateContent(updateForm);
+            updateForm.setupLoadAction(jsonRightPanel);
+            updateForm.setupSaveAction(jsonRightPanel);
 
-                // --- Encapsulated Load & Save logic ---
-                updateForm.setupLoadAction(updateRightPanel);  // Populates form when user clicks "Load Series"
-                updateForm.setupSaveAction(updateRightPanel);  // Saves changes and refreshes JSON display
-
-                revalidate();
-                repaint();
-            });
-        }
-
+            revalidate();
+            repaint();
+        });
+    }
 
         /**
         * Exposes SidebarPanel for navigation logic
