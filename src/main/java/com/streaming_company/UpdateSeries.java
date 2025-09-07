@@ -15,8 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-public class UpdateSeries extends JPanel {
-
+public class UpdateSeries extends JPanel 
+{
     private final JLabel idLabel;
     private final JTextField idField;
     private final JButton loadButton;
@@ -27,13 +27,15 @@ public class UpdateSeries extends JPanel {
 
     private static final String FILE_PATH = "AllSeries.json";
 
-    public UpdateSeries() {
+    public UpdateSeries() 
+    {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // --- Series ID ---
+    //-Step 1: Create and add components to panel
+        //--- Series ID ---
         idLabel = new JLabel("Enter Series ID:");
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.2;
         add(idLabel, gbc);
@@ -47,7 +49,7 @@ public class UpdateSeries extends JPanel {
         gbc.fill = GridBagConstraints.NONE; gbc.anchor = GridBagConstraints.LINE_END;
         add(loadButton, gbc);
 
-        // --- Name ---
+        //--- Name ---
         JLabel nameLabel = new JLabel("Series Name:");
         gbc.gridx = 0; gbc.gridy = 2; gbc.fill = GridBagConstraints.HORIZONTAL;
         add(nameLabel, gbc);
@@ -56,7 +58,7 @@ public class UpdateSeries extends JPanel {
         gbc.gridx = 1; gbc.gridy = 2;
         add(nameField, gbc);
 
-        // --- Age Restriction ---
+        //--- Age Restriction ---
         JLabel ageLabel = new JLabel("Age Restriction:");
         gbc.gridx = 0; gbc.gridy = 3;
         add(ageLabel, gbc);
@@ -65,7 +67,7 @@ public class UpdateSeries extends JPanel {
         gbc.gridx = 1; gbc.gridy = 3;
         add(ageField, gbc);
 
-        // --- Episodes ---
+        //--- Episodes ---
         JLabel episodesLabel = new JLabel("Episodes:");
         gbc.gridx = 0; gbc.gridy = 4;
         add(episodesLabel, gbc);
@@ -74,14 +76,14 @@ public class UpdateSeries extends JPanel {
         gbc.gridx = 1; gbc.gridy = 4;
         add(episodesField, gbc);
 
-        // --- Save Button ---
+        //--- Save Button ---
         saveButton = new JButton("Save Changes");
         gbc.gridx = 1; gbc.gridy = 5; gbc.anchor = GridBagConstraints.LINE_END;
         add(saveButton, gbc);
     }
 
     /**
-     * Sets up the Load button to populate the form when a Series ID is entered.
+     * Step 2: Sets up the Load button to populate the form when a Series ID is entered.
      */
     public void setupLoadAction(JSONRightPanel displayPanel) {
         loadButton.addActionListener(e -> {
@@ -96,7 +98,7 @@ public class UpdateSeries extends JPanel {
     }
 
     /**
-     * Sets up the Save button to update JSON and refresh the display panel.
+     * Step 3: Sets up the Save button to update JSON and refresh the display panel.
      */
     public void setupSaveAction(JSONRightPanel displayPanel) {
         saveButton.addActionListener(e -> {
@@ -108,7 +110,7 @@ public class UpdateSeries extends JPanel {
             boolean success = JSONRightPanel.updateSeries(seriesId, name, age, episodes);
             if (success) {
                 JOptionPane.showMessageDialog(this, "Series updated successfully!");
-                displayPanel.refresh();  // Refresh the read-only display
+                displayPanel.loadData();  // Refresh the read-only display
             }
         });
     }

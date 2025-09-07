@@ -2,6 +2,7 @@ package com.streaming_company;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -48,79 +49,101 @@ import javax.swing.JPanel;
 
             add(mainContentPanel, BorderLayout.CENTER);                                             //-Adds the main content panel to the center of the main panel
 
-        
-    //STEP 2: CREATE LOGIC AND ADD IT TO PANELS AND BUTTONS CREATED ABOVE       
-        JButton addButton = sidebarPanel.getAddButton();
-        addButton.addActionListener(a -> {
-            remove(jsonRightPanel);                           // remove JSON panel if exists
-            add(rightPanel, BorderLayout.EAST);       // restore original right panel
-            revalidate();
-            repaint();
+            
+    //STEP 2: CREATE LOGIC AND ADD IT TO PANELS AND BUTTONS
 
-            rightPanel.setData(new String[] {"", "", "", "", ""});
-            CaptureSeries addSeriesForm = new CaptureSeries();
-            mainContentPanel.updateContent(addSeriesForm);
+        //+++ CAPTURE SERIES
+            JButton addButton = sidebarPanel.getAddButton();
+            addButton.addActionListener(a -> 
+            {
+                swapRightPanel(rightPanel);
+                rightPanel.setData(new String[] {"", "", "", "", ""});                              //-Clears previous data on the fields
 
-            addSeriesForm.getSubmitButton().addActionListener(b -> {
-                String[] capturedData = addSeriesForm.getData();
-                String age = capturedData[2];
-                String episodes = capturedData[3];
-                if (!Validations.validateData(age, episodes)) return;
+                CaptureSeries addSeriesForm = new CaptureSeries();
+                mainContentPanel.updateContent(addSeriesForm);
 
-                rightPanel.setData(capturedData);
-                addSeriesForm.getSubmitButton().setEnabled(true);
+                addSeriesForm.getSubmitButton().addActionListener(b -> 
+                {
+                    String[] capturedData = addSeriesForm.getData();
+                    String age = capturedData[2];
+                    String episodes = capturedData[3];
+                    if (!Validations.validateData(age, episodes)) return;
 
-                JOptionPane.showMessageDialog(null, "Series added successfully!");
-                rightPanel.storeData(rightPanel.getData());
+                    rightPanel.setData(capturedData);
+                    JOptionPane.showMessageDialog(null, "Series added successfully!");
+                    rightPanel.storeData(rightPanel.getData());
 
-                addSeriesForm.resetFields();
-                addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());
+                    addSeriesForm.resetFields();
+                    addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());
+                });
             });
-        });
 
-        // --- SEARCH SERIES
-        JButton searchSeriesButton = sidebarPanel.getSearchButton();
-        searchSeriesButton.addActionListener(a -> {
-            remove(jsonRightPanel);
-            add(rightPanel, BorderLayout.EAST);
-            revalidate();
-            repaint();
+        //+++ SEARCH SERIES
+            JButton searchSeriesButton = sidebarPanel.getSearchButton();
+            searchSeriesButton.addActionListener(a -> 
+            {
+                swapRightPanel(rightPanel);
 
-            rightPanel.setData(new String[] {"", "", "", "", ""});
-            SearchSeries form = new SearchSeries();
-            mainContentPanel.updateContent(form);
+                rightPanel.setData(new String[] {"", "", "", "", ""});
 
-            form.getSearchButton().addActionListener(b -> {
-                String seriesId = form.getSeriesId();
-                String[] capturedData = SearchSeries.searchByID(seriesId);
-                rightPanel.setData(capturedData);
+                SearchSeries form = new SearchSeries();
+                mainContentPanel.updateContent(form);
+
+                form.getSearchButton().addActionListener(b -> 
+                {
+                    String seriesId = form.getSeriesId();
+                    String[] capturedData = SearchSeries.searchByID(seriesId);
+                    rightPanel.setData(capturedData);
+                });
             });
-        });
 
-        // --- UPDATE SERIES
-        JButton updateButton = sidebarPanel.getUpdateButton();
-        updateButton.addActionListener(a -> {
-            remove(rightPanel);
+        //+++ UPDATE SERIES
+            JButton updateButton = sidebarPanel.getUpdateButton();
+            updateButton.addActionListener(a -> 
+            {
+                jsonRightPanel = new JSONRightPanel();
+                swapRightPanel(jsonRightPanel);
 
-            jsonRightPanel = new JSONRightPanel();
-            add(jsonRightPanel, BorderLayout.EAST);
+                UpdateSeries updateForm = new UpdateSeries();
+                mainContentPanel.updateContent(updateForm);
 
-            UpdateSeries updateForm = new UpdateSeries();
-            mainContentPanel.updateContent(updateForm);
+                updateForm.setupLoadAction(jsonRightPanel);
+                updateForm.setupSaveAction(jsonRightPanel);
+            });
 
-            updateForm.setupLoadAction(jsonRightPanel);
-            updateForm.setupSaveAction(jsonRightPanel);
+        //+++ DELETE SERIES
+            JButton deleteButton = sidebarPanel.getDeleteButton();
+            deleteButton.addActionListener(a -> {
+                jsonRightPanel = new JSONRightPanel();
+                swapRightPanel(jsonRightPanel);
 
-            revalidate();
-            repaint();
-        });
-    }
+                DeleteSeries deleteForm = new DeleteSeries();
+                mainContentPanel.updateContent(deleteForm);
+
+                deleteForm.setupDeleteAction(jsonRightPanel);
+            });
+        }
 
         /**
-        * Exposes SidebarPanel for navigation logic
-        * Exposes RightPanel for metadata display
-        * @return
-        */
+         * Helper method to swap the right panel
+         * @param newPanel
+         */
+        private void swapRightPanel(JPanel newPanel) 
+        {
+            BorderLayout layout = (BorderLayout) getLayout();                                       //-Removes any existing EAST component
+            Component east = layout.getLayoutComponent(BorderLayout.EAST);
+            if (east != null) remove(east);
+
+            add(newPanel, BorderLayout.EAST);
+            revalidate();
+            repaint();
+        }
+
+        /**
+         * Exposes SidebarPanel for navigation logic
+         * Exposes RightPanel for metadata display
+         * @return
+         */
         public SidebarPanel getSidebarPanel() { return sidebarPanel; }
         public RightPanel getRightPanel() { return rightPanel; }
         public TopPanel getTopPanel() { return topPanel; }
