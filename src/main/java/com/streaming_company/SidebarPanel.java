@@ -56,10 +56,10 @@ public class SidebarPanel extends JPanel                                        
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
     
 //-Adds a bevel style to the button
-       /* button.setBorder(BorderFactory.createCompoundBorder(
+       button.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createBevelBorder(1, Color.LIGHT_GRAY, Color.DARK_GRAY),
             BorderFactory.createEmptyBorder(10, 20, 10, 20)
-    ));*/
+    ));
 //-Adds a hover effect to the button
         button.addMouseListener(new java.awt.event.MouseAdapter() 
         {
@@ -89,15 +89,18 @@ public class SidebarPanel extends JPanel                                        
     }
 
     /**
-     * Getter for HomePanel to attach navigation logic
+     * Getters for HomePanel to attach navigation logic
      * @param name
      * @return
      */
     public JButton getAddButton() { return sidebarButton.get("Capture Series"); }
+    public JButton getSearchButton() { return sidebarButton.get("Search Series"); }
+    public JButton getUpdateButton() { return sidebarButton.get("Update Series"); }
+    public JButton getDeleteButton() { return sidebarButton.get("Delete Series"); }
 }
 
 
- /**
+   /**
      * References
      * OpenAI. (2025, August 31). *ChatGPT* (Version GPT-4) [Large language model]. https://chat.openai.com/chat
      *

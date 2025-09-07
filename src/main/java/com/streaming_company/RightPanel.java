@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class RightPanel extends JPanel 
 {
-    private final JLabel[] metaLabels;                                                         //-Declares an array for metadata labels
+    private final JLabel[] metaLabels;                                                              //-Declares an array for metadata labels
     private final JLabel[] dataFields;                                                              //-Declares an array for data fields
     private final JTextArea descriptionField;                                                       //-Declares a text area for the description
 
@@ -103,6 +103,7 @@ public class RightPanel extends JPanel
         add(descriptionPanel, BorderLayout.CENTER);
     }
 
+
     /**
      * Retrieves the data from the right panel
      * @return
@@ -117,7 +118,7 @@ public class RightPanel extends JPanel
         return data;
     }
 
-
+    
     /**
      * Sets the data that was retrieved by getData() for the right panel
      * Keeps all metadata fields in sync with the form data
@@ -179,5 +180,5 @@ public class RightPanel extends JPanel
                 b.printStackTrace();                                                                //-Prints LOG for errors to help debug saving data to JSON
             JOptionPane.showMessageDialog(null, "Error saving series data!");
         }
-    }
+    }   
 }

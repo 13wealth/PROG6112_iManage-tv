@@ -13,16 +13,17 @@ public class Validations
      */
     public static boolean validateData(String age, String episodes) 
     {
-        age = (age != null) ? age.trim() : "";                                                      //-If age is not null, then set age to age.trim(). Else, set age to the empty string ""
-        episodes = (episodes != null) ? episodes.trim() : "";                                       //-If episodes is not null, then set episodes to episodes.trim(). Else, set episodes to the empty string ""
-
-        if (age.isEmpty() || !age.matches("\\d+")) //-Validates for empty or non-numeric age
+        if (age == null || age.trim().isEmpty() || !age.trim().matches("^(?:[2-9]|1[0-8])$"))                                    //-Regex for non-numeric age and valid age range
         {
-            JOptionPane.showMessageDialog(null, "Age Restriction must be a number!");
+            JOptionPane.showMessageDialog(null, """
+                                                You have entered an invalid series age!
+                                                Valid age restriction is between 2 and 18
+                                                Please re-enter the series age.
+                                                """);
             return false;
         }
 
-        if (episodes.isEmpty() || !episodes.matches("\\d+"))                    //-Validates for empty or non-numeric episodes
+        if (episodes == null || episodes.trim().isEmpty() || !episodes.trim().matches("\\d+"))                                        //-Regex for non-numeric episodes
         {
             JOptionPane.showMessageDialog(null, "Episodes must be a number!");
             return false;
@@ -30,3 +31,5 @@ public class Validations
         return true;                                                                                //-Return true if both fields are valid
     }
 }
+
+
