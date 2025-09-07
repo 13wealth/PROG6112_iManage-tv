@@ -54,35 +54,34 @@ public class HomePanel extends JPanel                                           
 
     //-Step 1: Create AddSeries form and update main content panel
         JButton addButton = sidebarPanel.getAddButton();                                            //-From SidebarPanel(): Get the empty "Add Series" button
-        addButton.addActionListener(e -> 
+        addButton.addActionListener(a -> 
         {
-            AddSeries addSeriesForm = new AddSeries();                                              //-From AddSeries(): Apply the logic to the "Add Series" button
-            mainContentPanel.updateContent(addSeriesForm);                                          //-Swaps the main content panel with the AddSeries form
+            CaptureSeries addSeriesForm = new CaptureSeries();                                      //-Create and CaptureSeries object called addSeriesForm
+            mainContentPanel.updateContent(addSeriesForm);                                          //-Swaps the main content panel with the CaptureSeries form
 
     //-Step 2: Handles form submission
-            addSeriesForm.getSubmitButton().addActionListener(ev -> 
+            addSeriesForm.getSubmitButton().addActionListener(b -> 
             {
-                String[] capturedData = addSeriesForm.getData();                                    //-Getter from AddSeries that retrieves user input
+                String[] capturedData = addSeriesForm.getData();                                    //-Getter from CaptureSeries that retrieves user input
+                String age = capturedData[2];
+                String episodes = capturedData[3];
+                if (!Validations.validateData(age, episodes)) return;                               //-Validates the data before proceeding
                 rightPanel.setData(capturedData);                                                   //-Setter from RightPanel that updates the right panel with it
-                addSeriesForm.getSubmitButton().setEnabled(false);                                  //-Disables the submit button after submission
+                addSeriesForm.getSubmitButton().setEnabled(true);                                   //-Disables the submit button after submission
 
                 JOptionPane.showMessageDialog(null, "Series added successfully!");                  //-Gives feedback to the user        
     
     //-Step 3: Retrieve the data and save it to the JSON file
             String [] rightPanelData = rightPanel.getData();                                        //-Gets data from the right panel
-            rightPanel.saveData(rightPanelData);                                                    //-Saves the data in the JSON file
+            rightPanel.storeData(rightPanelData);                                                   //-Stores the data in the JSON file
 
-    //-Step 4: Reset the panels
-            mainContentPanel.updateContent(new JPanel());                                           //-Reset the main content panel
-            rightPanel.setData(new String[]{"", "", "", "", ""});                                   //-Reset the right panel data                                                                   
+    //-Step 4: Reset the panels and generate a new Series ID
+            addSeriesForm.resetFields();                                                            //-Reset data fields in the Series form
+            addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());                                //-Generates a new Series ID
             });
         });
     }
     
-
-
-
-
     
     /**
     * Exposes SidebarPanel for navigation logic

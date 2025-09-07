@@ -1,44 +1,32 @@
 package com.streaming_company;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-public class Validations {
+public class Validations 
+{
+    /**
+     * Validates age restriction and episodes fields.
+     * Shows a message dialog if validation fails.
+     * @param age -> Age Restriction input
+     * @param episodes -> Episodes input
+     * @return true if both fields are valid numbers, false otherwise
+     */
+    public static boolean validateData(String age, String episodes) 
+    {
+        age = (age != null) ? age.trim() : "";                                                      //-If age is not null, then set age to age.trim(). Else, set age to the empty string ""
+        episodes = (episodes != null) ? episodes.trim() : "";                                       //-If episodes is not null, then set episodes to episodes.trim(). Else, set episodes to the empty string ""
 
-    public static void validateAgeAndProcess(String ageInput, String[] capturedData,
-                                         RightPanel rightPanel, AddSeries addSeriesForm,
-                                         MainContentPanel mainContentPanel) {
-    if (ageInput == null || ageInput.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Age field cannot be empty.");
-        return;
-    }
-
-    String trimmed = ageInput.trim();
-
-    for (int i = 0; i < trimmed.length(); i++) {
-        if (!Character.isDigit(trimmed.charAt(i))) {
-            JOptionPane.showMessageDialog(null, "Please enter a valid numeric age.");
-            return;
+        if (age.isEmpty() || !age.matches("\\d+")) //-Validates for empty or non-numeric age
+        {
+            JOptionPane.showMessageDialog(null, "Age Restriction must be a number!");
+            return false;
         }
+
+        if (episodes.isEmpty() || !episodes.matches("\\d+"))                    //-Validates for empty or non-numeric episodes
+        {
+            JOptionPane.showMessageDialog(null, "Episodes must be a number!");
+            return false;
+        }
+        return true;                                                                                //-Return true if both fields are valid
     }
-
-    int age = Integer.parseInt(trimmed);
-
-    if (age < 0) {
-        JOptionPane.showMessageDialog(null, "Age cannot be negative.");
-        return;
-    }
-
-    // ✅ Everything happens here
-    rightPanel.setData(capturedData);
-    addSeriesForm.getSubmitButton().setEnabled(false);
-    JOptionPane.showMessageDialog(null, "Series added successfully!");
-
-    String[] rightPanelData = rightPanel.getData();
-    rightPanel.saveData(rightPanelData);
-
-    mainContentPanel.updateContent(new JPanel());
-    rightPanel.setData(new String[]{"", "", "", "", ""});
-}
-
 }

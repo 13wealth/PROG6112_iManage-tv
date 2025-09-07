@@ -24,7 +24,7 @@ public class SidebarPanel extends JPanel                                        
         setLayout(new GridLayout(6, 1, 10, 10));                                                    //-Panel structure: 6 rows, 1 column, 10 pixels horizontal and vertical spacing
 
 //-Step 2: Adds Button labels to an array
-        String[] labels = { "Add Series", 
+        String[] labels = { "Capture Series", 
                             "Search Series", 
                             "Update Series", 
                             "Delete Series", 
@@ -93,7 +93,7 @@ public class SidebarPanel extends JPanel                                        
      * @param name
      * @return
      */
-    public JButton getAddButton() { return sidebarButton.get("Add Series"); }
+    public JButton getAddButton() { return sidebarButton.get("Capture Series"); }
 }
 
 
