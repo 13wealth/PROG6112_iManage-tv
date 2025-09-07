@@ -118,11 +118,20 @@ public class CaptureSeries extends JPanel
     /**
      * Method to generate a unique Series ID
      * @return String representing the unique Series ID
+     * Method code was assisted by ChatGPT.
      */
     public static String generateSeriesId() 
     {
-        return "SER" + System.currentTimeMillis();                                                  //-Generates a unique Series ID
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  // characters to choose from
+    StringBuilder id = new StringBuilder("S");               // start with 'S'
+    
+    for (int i = 0; i < 3; i++) {                           // generate 3 random characters
+        int rand = (int) (Math.random() * chars.length());
+        id.append(chars.charAt(rand));
     }
+    
+    return id.toString();                                    // returns something like S7A2
+}
     
 
     /**
@@ -137,9 +146,14 @@ public class CaptureSeries extends JPanel
         descriptionField.setText("");
     }
 
-    public void setSeriesId(String newId) {
-    idField.setText(newId);
-}
+    /**
+     * Provides a new ID for the next form
+     * @param newId
+     */
+    public void setSeriesId(String newId) 
+    {
+        idField.setText(newId);
+    }
 
     /**
      * Getter method to retrieve the series data from the form
@@ -166,3 +180,8 @@ public class CaptureSeries extends JPanel
     public JButton getSubmitButton() { return submitButton; }
 }
 
+/**
+     * References
+     * OpenAI. (2025, September 07). *ChatGPT* (Version GPT-4) [Large language model]. https://chat.openai.com/chat
+     *
+     */
