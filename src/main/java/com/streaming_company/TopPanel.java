@@ -49,7 +49,7 @@ public class TopPanel extends JPanel
             dateTime = new JLabel("Date and Time");
             dateTime.setFont(new Font("Arial", Font.PLAIN, 16));
             dateTime.setForeground(Color.LIGHT_GRAY);
-            dateTime.setHorizontalAlignment(SwingConstants.CENTER);
+            dateTime.setHorizontalAlignment(SwingConstants.RIGHT);
 
             add(dateTime);                                                                          //-Adds the date and time label to the panel
 

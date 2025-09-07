@@ -4,18 +4,25 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class RightPanel extends JPanel 
 {
-    private final JLabel[] metaLabels;                                                                    //-Declares an array for metadata labels
-    private final JLabel[] dataFields;                                                                    //-Declares an array for data fields
-    private final JTextArea descriptionField;                                                             //-Declares a text area for the description
+    private final JLabel[] metaLabels;                                                         //-Declares an array for metadata labels
+    private final JLabel[] dataFields;                                                              //-Declares an array for data fields
+    private final JTextArea descriptionField;                                                       //-Declares a text area for the description
 
     public RightPanel() 
     {
@@ -94,6 +101,21 @@ public class RightPanel extends JPanel
     }
 
     /**
+     * Retrieves the data from the right panel
+     * @return
+     */
+    public String[] getData()
+    {
+        String[] data = new String[dataFields.length];
+        for (int i = 0; i < dataFields.length; i++) 
+        {
+            data[i] = dataFields[i].getText();                                                      //-Gets text from each data field
+        }
+        return data;
+    }
+
+
+    /**
      * Sets the data that was retrieved by getData() for the right panel
      * Keeps all metadata fields in sync with the form data
      * @param capturedData
@@ -102,12 +124,58 @@ public class RightPanel extends JPanel
     {
         for (int i = 0; i < capturedData.length && i < dataFields.length; i++) 
         {
-            dataFields[i].setText(capturedData[i]);
-        
-            if (capturedData.length > dataFields.length) 
+            dataFields[i].setText(capturedData[i]);                                                 //-Sets text for each data field
+
+            if (capturedData.length > dataFields.length)                                            //-Checks if there is additional data for the description field
             {
                 descriptionField.setText(capturedData[dataFields.length]);
             }
+        }
+    }
+
+    
+    /**
+     * Saves the series data to a JSON file while the program runs
+     * Makes use of a temporary memory to store the existing file
+     * @param panelData
+     */
+    public void saveData(String[] panelData) 
+    {
+        try 
+        {
+            JSONArray seriesArray = new JSONArray();                                                //-Creates a new JSON array
+
+            try (FileReader reader = new FileReader("series.json"))                                 //-Tries to read the existing JSON file
+            {
+                char[] buffer = new char[4096];                                                     //-Sets temporary memory size for reading the file
+                int length = reader.read(buffer);                                                   //-Reads data into the temporary memory
+                    if (length > 0)                                                                 //-Checks if any data was read
+                    {
+                        String existing = new String(buffer, 0, length);                            //-Creates a string from the temporary memory
+                        seriesArray = new JSONArray(existing);                                      //-Parses the string into a JSON array
+                    }
+            } catch (IOException e) {
+
+            }
+
+        //-Create a new series object to hold the current series data
+            JSONObject series = new JSONObject();
+            series.put("SeriesID", panelData[0]);
+            series.put("Name", panelData[1]);
+            series.put("AgeRestriction", panelData[2]);
+            series.put("Episodes", panelData[3]);
+            ///series.put("Description", panelData[4]); //Has been excluded as it crushed the program due to created outside dataField.length Return 3 for JSON
+
+        //-Parse the series object to the array and save
+            seriesArray.put(series);                                                                //-Adds the series object to the array
+                try (FileWriter writeData = new FileWriter("AllSeries.json"))                          //-Writes the JSON array to the file
+                {
+                    writeData.write(seriesArray.toString(4));                          //-Formats the JSON output with an indentation of 4 spaces
+                }
+
+        } catch (java.io.IOException | org.json.JSONException e) {                                  //-Multi-catch for specific exceptions
+            e.printStackTrace();                                                                    //-Prints the trace LOG trace debugging
+            JOptionPane.showMessageDialog(null, "Error saving series data!");
         }
     }
 }
