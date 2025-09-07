@@ -1,4 +1,6 @@
 
+package com;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -14,16 +16,9 @@ public class iManageTV
     {
         AppLauncher.startMenu();                                                                    //-Call this app launcher method to validate user choice
         UIHelper.playWelcomeTone("/sounds/welcome2.wav");                                 //-Plays a welcome tone when the application starts
-    
-     /**
-     * This swing utility ensures JFrame creation and showing GUI happens on the correct thread.
-     * Best practice not to draw and update GUI components directly in the main method
-     *  to avoid potential threading issues.
-     * This is because Swing is not thread-safe, and all UI updates should occur on 
-     *  the Event Dispatch Thread (EDT).
-     * THREAD: A mini-program running inside your bigger program/main
-     */
-        SwingUtilities.invokeLater(() -> {                                                      
+   
+        SwingUtilities.invokeLater(() -> 
+        {                                                      
             JFrame appWindow = new JFrame("Your Shows, Your Control!");                             //-Creates JFrame application window called "appWindow"
             UIHelper.setAppIcon(appWindow, "/images/iM_icon.png");                         //-Sets the application icon when the application starts
             UIHelper.adaptScreen(appWindow);                                                        //-Adapts the JFrame to any screen size
@@ -46,5 +41,12 @@ public class iManageTV
      *      - Configures the initial size and position of the window
      *      - Adds the home panel to the frame
      *      - Makes the frame visible
+     * 
+     * The swing utility ensures JFrame creation and showing GUI happens on the correct thread.
+     * Best practice not to draw and update GUI components directly in the main method
+     *  to avoid potential threading issues.
+     * This is because Swing is not thread-safe, and all UI updates should occur on 
+     *  the Event Dispatch Thread (EDT).
+     * THREAD: A mini-program running inside your bigger program/main
      */
  

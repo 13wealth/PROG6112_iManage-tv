@@ -124,7 +124,7 @@ public class AddSeries extends JPanel
      */
     public static String generateSeriesId() 
     {
-        return "SER" + System.currentTimeMillis();
+        return "SER" + System.currentTimeMillis();                                                  //-Generates a unique Series ID
     }
 
 

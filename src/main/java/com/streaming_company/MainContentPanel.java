@@ -11,8 +11,6 @@ import javax.swing.SwingConstants;
 
 public class MainContentPanel extends JPanel
 {
-    private JLabel contentLabel;
-
     /**
      * Constructor that initialises the main content panel
      * Diisplays a text on app launch then updates the panel on every button press
