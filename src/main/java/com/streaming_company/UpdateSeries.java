@@ -4,10 +4,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.FileInputStream;
-import java.io.IOException;
 
-import javax.swing.JButton;                                                                     //-Improt for reading the JSON file
-import javax.swing.JLabel;                                                                         //-Improt for reading the JSON file
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,158 +15,138 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-public class UpdateSeries extends JPanel
-{
-    JLabel idLabel;
-    JTextField idField;
-    JButton loadButton;
-    JTextField nameField;
-    JTextField ageField;
-    JTextField episodesField;
+public class UpdateSeries extends JPanel {
+
+    private final JLabel idLabel;
+    private final JTextField idField;
+    private final JButton loadButton;
+    private final JTextField nameField;
+    private final JTextField ageField;
+    private final JTextField episodesField;
     private final JButton saveButton;
-    private static final String FILE_PATH = "AllSeries.json";    
 
-    public UpdateSeries() 
-    {
+    private static final String FILE_PATH = "AllSeries.json";
+
+    public UpdateSeries() {
         setLayout(new GridBagLayout());
-        GridBagConstraints properties = new GridBagConstraints();
-        properties.insets = new Insets(5,5,5,5);
-        properties.fill = GridBagConstraints.HORIZONTAL;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    //-Step 1: Add the label
+        // --- Series ID ---
         idLabel = new JLabel("Enter Series ID:");
-        properties.gridx = 0;
-        properties.gridy = 0;
-        properties.weightx = 0.2;
-        add(idLabel, properties);
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.2;
+        add(idLabel, gbc);
 
-    //-Step 2: Add the text field
         idField = new JTextField(20);
-        properties.gridx = 1;
-        properties.weightx = 0.8;
-        add(idField, properties);
+        gbc.gridx = 1; gbc.weightx = 0.8;
+        add(idField, gbc);
 
-    //-Step 3: Add the load series button
         loadButton = new JButton("Load Series");
-        properties.gridx = 1;
-        properties.gridy = 1;
-        properties.weightx = 0;
-        properties.fill = GridBagConstraints.NONE;
-        properties.anchor = GridBagConstraints.LINE_END;
-        add(loadButton, properties);
-    
-    // Step 3: Name field
+        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE; gbc.anchor = GridBagConstraints.LINE_END;
+        add(loadButton, gbc);
+
+        // --- Name ---
         JLabel nameLabel = new JLabel("Series Name:");
-        properties.gridx = 0;
-        properties.gridy = 2;
-        properties.fill = GridBagConstraints.HORIZONTAL;
-        add(nameLabel, properties);
+        gbc.gridx = 0; gbc.gridy = 2; gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(nameLabel, gbc);
 
         nameField = new JTextField(20);
-        properties.gridx = 1;
-        properties.gridy = 2;
-        add(nameField, properties);
+        gbc.gridx = 1; gbc.gridy = 2;
+        add(nameField, gbc);
 
-    // Step 4: Age Restriction
+        // --- Age Restriction ---
         JLabel ageLabel = new JLabel("Age Restriction:");
-        properties.gridx = 0;
-        properties.gridy = 3;
-        add(ageLabel, properties);
+        gbc.gridx = 0; gbc.gridy = 3;
+        add(ageLabel, gbc);
 
         ageField = new JTextField(20);
-        properties.gridx = 1;
-        properties.gridy = 3;
-        add(ageField, properties);
+        gbc.gridx = 1; gbc.gridy = 3;
+        add(ageField, gbc);
 
-    // Step 5: Episodes
-    JLabel episodesLabel = new JLabel("Episodes:");
-        properties.gridx = 0;
-        properties.gridy = 4;
-        add(episodesLabel, properties);
+        // --- Episodes ---
+        JLabel episodesLabel = new JLabel("Episodes:");
+        gbc.gridx = 0; gbc.gridy = 4;
+        add(episodesLabel, gbc);
 
         episodesField = new JTextField(20);
-        properties.gridx = 1;
-        properties.gridy = 4;
-        add(episodesField, properties);
+        gbc.gridx = 1; gbc.gridy = 4;
+        add(episodesField, gbc);
 
-    // Step 6: Save button
+        // --- Save Button ---
         saveButton = new JButton("Save Changes");
-        properties.gridx = 1;
-        properties.gridy = 5;
-        properties.anchor = GridBagConstraints.LINE_END;
-        add(saveButton, properties);
-    }
-
-   /**
-     * Reads all series from the JSON file.
-     * @return A 2D array containing all series data.
-     */
-    public static String[][] readAllSeries() 
-    {
-        try (FileInputStream input = new FileInputStream(FILE_PATH)) 
-        {
-            JSONArray seriesArray = new JSONArray(new JSONTokener(input));
-            String[][] allData = new String[seriesArray.length()][4];
-
-            for (int i = 0; i < seriesArray.length(); i++) {
-                JSONObject series = seriesArray.getJSONObject(i);
-                allData[i][0] = series.getString("SeriesID");
-                allData[i][1] = series.getString("Name");
-                allData[i][2] = series.getString("AgeRestriction");
-                allData[i][3] = series.getString("Episodes");
-            }
-            return allData;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error reading JSON file!");
-            e.printStackTrace();
-            return new String[0][0];
-        }
+        gbc.gridx = 1; gbc.gridy = 5; gbc.anchor = GridBagConstraints.LINE_END;
+        add(saveButton, gbc);
     }
 
     /**
-     * Reads and searches the JSON filefor a series by its ID.
-     * @param Id The ID of the series to search for.
-     * @return True if the series is found, false otherwise.
-     * Reading the JSON file logic was assisted by ChatGPT.
+     * Sets up the Load button to populate the form when a Series ID is entered.
      */
-    public static String[] searchByID(String seriesId)
-    {
-        try (FileInputStream input = new FileInputStream(FILE_PATH))                                //-Open the JSON file and close it automatically when done
-        {
-            JSONArray seriesArray = new JSONArray(new JSONTokener(input));                          //-JSONArray parse the JSON file into a JSONArray
-        //-Loops through each object in the array to find a match                                      JSONTokener converts a file contents into a JSON objects/stream
-            for (int i = 0; i < seriesArray.length(); i++)
-            {
+    public void setupLoadAction(JSONRightPanel displayPanel) {
+        loadButton.addActionListener(e -> {
+            String seriesId = getSeriesId();
+            String[] data = searchByID(seriesId);
+            if (data != null) {
+                nameField.setText(data[1]);
+                ageField.setText(data[2]);
+                episodesField.setText(data[3]);
+            }
+        });
+    }
+
+    /**
+     * Sets up the Save button to update JSON and refresh the display panel.
+     */
+    public void setupSaveAction(JSONRightPanel displayPanel) {
+        saveButton.addActionListener(e -> {
+            String seriesId = getSeriesId();
+            String name = nameField.getText();
+            String age = ageField.getText();
+            String episodes = episodesField.getText();
+
+            boolean success = JSONRightPanel.updateSeries(seriesId, name, age, episodes);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Series updated successfully!");
+                displayPanel.refresh();  // Refresh the read-only display
+            }
+        });
+    }
+
+    /**
+     * Get the Series ID from the form.
+     */
+    public String getSeriesId() {
+        return idField.getText().trim();
+    }
+
+    /**
+     * Static method to search for a series by ID.
+     */
+    public static String[] searchByID(String seriesId) {
+        try (FileInputStream input = new FileInputStream(FILE_PATH)) {
+            JSONArray seriesArray = new JSONArray(new JSONTokener(input));
+            for (int i = 0; i < seriesArray.length(); i++) {
                 JSONObject series = seriesArray.getJSONObject(i);
-                if (seriesId.equals(series.getString("SeriesID")))
-                {
-                    return new String[]                                                             //-If found  it returns an String array with these keys
-                    {
+                if (seriesId.equals(series.getString("SeriesID"))) {
+                    return new String[]{
                         series.getString("SeriesID"),
                         series.getString("Name"),
                         series.getString("AgeRestriction"),
-                        series.getString("Episodes"),
+                        series.getString("Episodes")
                     };
                 }
             }
-
-        //-If no match is found
             JOptionPane.showMessageDialog(null, "Series ID not found!");
             return null;
-
-            } catch (IOException | org.json.JSONException e) {
-                JOptionPane.showMessageDialog(null, "Error reading JSON file!");
-                e.printStackTrace();
-                return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error reading JSON file!");
+            return null;
         }
     }
 
- /**
-     * Getters for HomePanel to attach update logic
-     * @return
-     */
+    // --- Getters for HomePanel ---
     public JButton getUpdateButton() { return loadButton; }
-    public String getSeriesId() { return idField.getText().trim(); }
     public JButton getSaveButton() { return saveButton; }
-
 }
