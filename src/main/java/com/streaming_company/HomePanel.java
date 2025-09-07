@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -53,8 +55,8 @@ import javax.swing.JPanel;
     //STEP 2: CREATE LOGIC AND ADD IT TO PANELS AND BUTTONS
 
         //+++ CAPTURE SERIES
-            JButton addButton = sidebarPanel.getAddButton();
-            addButton.addActionListener(a -> 
+            JButton captureButton = sidebarPanel.getCaptureButton();
+            captureButton.addActionListener(a -> 
             {
                 swapRightPanel(rightPanel);
                 rightPanel.setData(new String[] {"", "", "", "", ""});                              //-Clears previous data on the fields
@@ -113,7 +115,8 @@ import javax.swing.JPanel;
 
         //+++ DELETE SERIES
             JButton deleteButton = sidebarPanel.getDeleteButton();
-            deleteButton.addActionListener(a -> {
+            deleteButton.addActionListener(a -> 
+            {
                 jsonRightPanel = new JSONRightPanel();
                 swapRightPanel(jsonRightPanel);
 
@@ -121,6 +124,30 @@ import javax.swing.JPanel;
                 mainContentPanel.updateContent(deleteForm);
 
                 deleteForm.setupDeleteAction(jsonRightPanel);
+            });
+
+        //+++ SERIES REPORT
+            JButton reportButton = sidebarPanel.getReportButton();
+            reportButton.addActionListener(a -> 
+            {
+                jsonRightPanel = new JSONRightPanel();
+                swapRightPanel(jsonRightPanel);
+
+                JPanel reportMessagePanel = new JPanel();                                           //-Displays text in the main content area
+                JLabel messageLabel = new JLabel("Current Active Series", JLabel.CENTER);
+                messageLabel.setFont(new Font("Arial", Font.BOLD, 24));
+                messageLabel.setForeground(new Color(50, 50, 50));
+                reportMessagePanel.add(messageLabel, BorderLayout.CENTER);
+                mainContentPanel.updateContent(reportMessagePanel);
+
+                SeriesReport.printAllSeries();
+            });
+
+        //+++ LOG OUT
+            JButton logoutButton = sidebarPanel.getLogoutButton();
+            logoutButton.addActionListener(a -> 
+            {
+                System.exit(0);
             });
         }
 

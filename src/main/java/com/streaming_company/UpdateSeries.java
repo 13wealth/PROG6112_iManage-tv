@@ -109,7 +109,7 @@ public class UpdateSeries extends JPanel
 
             boolean success = JSONRightPanel.updateSeries(seriesId, name, age, episodes);
             if (success) {
-                JOptionPane.showMessageDialog(this, "Series updated successfully!");
+                JOptionPane.showMessageDialog(null, "Series updated successfully!");
                 displayPanel.loadData();  // Refresh the read-only display
             }
         });

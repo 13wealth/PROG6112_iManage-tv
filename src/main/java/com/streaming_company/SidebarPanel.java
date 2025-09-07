@@ -55,35 +55,19 @@ public class SidebarPanel extends JPanel                                        
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
     
-//-Adds a bevel style to the button
-       button.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createBevelBorder(1, Color.LIGHT_GRAY, Color.DARK_GRAY),
-            BorderFactory.createEmptyBorder(10, 20, 10, 20)
-    ));
 //-Adds a hover effect to the button
         button.addMouseListener(new java.awt.event.MouseAdapter() 
         {
-            @Override                                                                                   //-Indicates an override of the JPanel attributes
+            @Override                                                                               //-Indicates an override of the JPanel attributes
             public void mouseEntered(java.awt.event.MouseEvent evt) 
             {
-                button.setBackground(new Color(90, 90, 90));                                            //-Lighter when hover on a button
+                button.setBackground(new Color(90, 90, 90));                                        //-Lighter when hover on a button
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) 
             {
-                button.setBackground(new Color(60, 60, 60));                                            //-Restore original once mouse exits
-            }
-
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent evt) 
-            {
-                button.setBorder(BorderFactory.createBevelBorder(0, Color.DARK_GRAY, Color.GRAY));      //-Creates this event when the mouse is pressed
-            }
-
-            @Override
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                button.setBorder(BorderFactory.createBevelBorder(1, Color.LIGHT_GRAY, Color.DARK_GRAY)); //-Creates this event when the mouse is released
+                button.setBackground(new Color(60, 60, 60));                                        //-Restore original once mouse exits
             }
         });
     }
@@ -93,10 +77,12 @@ public class SidebarPanel extends JPanel                                        
      * @param name
      * @return
      */
-    public JButton getAddButton() { return sidebarButton.get("Capture Series"); }
+    public JButton getCaptureButton() { return sidebarButton.get("Capture Series"); }
     public JButton getSearchButton() { return sidebarButton.get("Search Series"); }
     public JButton getUpdateButton() { return sidebarButton.get("Update Series"); }
     public JButton getDeleteButton() { return sidebarButton.get("Delete Series"); }
+    public JButton getReportButton() { return sidebarButton.get("Reports"); }
+    public JButton getLogoutButton() { return sidebarButton.get("Logout"); }
 }
 
 
