@@ -7,25 +7,25 @@
 
 ## Overview
 
-This Java-based TV Series Management application allows users to capture, search, update, and delete TV series data. It demonstrates full GUI integration, JSON file handling, and unit testing using JUnit.
+This Java-based TV Series Management application allows users to **capture, search, update, and delete TV series data.**   It demonstrates full GUI integration, JSON file handling, and unit testing using JUnit.
 
 The project started as a simple idea and evolved into a fully functional program with robust validation, user interaction, and persistent storage.
 
-Features
+## Features
 
-Add TV Series: Capture series details including Series ID, Name, Age Restriction, Episodes, and optional Description.
+- Add TV Series: Capture series details including Series ID, Name, Age Restriction, Episodes, and optional Description.
 
-Search Series: Search for a series by its ID with real-time display of metadata.
+- Search Series: Search for a series by its ID with real-time display of metadata.
 
-Update Series: Modify existing series data and save changes to the JSON file.
+- Update Series: Modify existing series data and save changes to the JSON file.
 
-Delete Series: Remove series by ID with confirmation prompt and automatic refresh of display.
+- Delete Series: Remove series by ID with confirmation prompt and automatic refresh of display.
 
-Validation: Ensures Age Restriction and Episodes are numeric and within valid ranges.
+- Validation: Ensures Age Restriction and Episodes are numeric and within valid ranges.
 
-JSON Storage: Stores all series in AllSeries.json for persistent data management.
+- JSON Storage: Stores all series in AllSeries.json for persistent data management.
 
-JUnit Testing: Comprehensive tests for search, update, delete, and validation logic.
+- JUnit Testing: Comprehensive tests for search, update, delete, and validation logic.
 
 Installation & Setup
 
