@@ -1,4 +1,4 @@
-##TV Series Management Application
+#TV Series Management Application
 
 Author: Smithy
 Course: PROG6112 - Software Development
