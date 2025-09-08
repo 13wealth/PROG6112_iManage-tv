@@ -3,7 +3,7 @@
 **Author:** Smith Mbele  
 **Course:** PROG6112 - Software Development  
 **Project:** Assignment Submission  
-**Git Repository:** [Insert your GitHub link here]  
+**Git Repository:** [https://github.com/13wealth/PROG6112_iManage-tv.git] 
 
 ## Overview
 
@@ -27,40 +27,40 @@ The project started as a simple idea and evolved into a fully functional program
 
 - JUnit Testing: Comprehensive tests for search, update, delete, and validation logic.
 
-Installation & Setup
+## Installation & Setup
 
-Clone the repository:
+1. Clone the repository:
 
-git clone [Your GitHub link here]
+git clone [https://github.com/13wealth/PROG6112_iManage-tv.git] 
 
 
-Open the project in VS Code or your preferred Java IDE.
+2. Open the project in VS Code or your preferred Java IDE.
 
-Ensure you have Java 24 or higher installed.
+3. Ensure you have Java 24 or higher installed.
 
-The project uses JUnit 5 for testing; Maven is configured to handle dependencies.
+4. The project uses JUnit 5 for testing; Maven is configured to handle dependencies.
 
-Run the application by executing the TVSeriesManagement main class.
+5. Run the application by executing the TVSeriesManagement main class.
 
-Running Tests
+## Running Tests
 
-Tests are written using JUnit 5 and cover:
+Tests are written using **JUnit 5** and cover:
 
-testSearchSeries – Verifies series can be found by ID.
+- testSearchSeries – Verifies series can be found by ID.
 
-testSearchSeries_SeriesNotFound – Verifies behavior when series ID is missing.
+- testSearchSeries_SeriesNotFound – Verifies behavior when series ID is missing.
 
-testUpdateSeries – Confirms series data is updated correctly in JSON.
+- testUpdateSeries – Confirms series data is updated correctly in JSON.
 
-testDeleteSeries – Confirms deletion logic works and handles missing IDs.
+- testDeleteSeries – Confirms deletion logic works and handles missing IDs.
 
-testSeriesAgeRestriction_AgeValid & testSeriesAgeRestriction_AgeInvalid – Validates age and episodes input.
+- testSeriesAgeRestriction_AgeValid & testSeriesAgeRestriction_AgeInvalid – Validates age and episodes input.
 
-Run tests using Maven:
+#### Run tests using Maven:
 
 mvn test
 
-File Structure
+## File Structure
 
 src/main/java/com/streaming_company/ – Java source files.
 
@@ -70,7 +70,7 @@ AllSeries.json – JSON file storing all series data.
 
 src/test/java/com/streaming_company/ – JUnit test classes.
 
-Notes
+## Notes
 
 Series IDs are auto-generated to ensure uniqueness.
 
@@ -78,7 +78,7 @@ The GUI is built using JPanel, GridLayout, and GridBagLayout for flexibility.
 
 Descriptions are optional and primarily for UI display; validation and tests focus on Series ID, Name, Age, and Episodes.
 
-Future Enhancements
+## Future Enhancements
 
 Implement a search by name feature.
 
