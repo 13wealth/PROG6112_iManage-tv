@@ -81,27 +81,35 @@ public class UpdateSeries extends JPanel
         gbc.gridx = 1; gbc.gridy = 5; gbc.anchor = GridBagConstraints.LINE_END;
         add(saveButton, gbc);
     }
+    
 
     /**
-     * Step 2: Sets up the Load button to populate the form when a Series ID is entered.
+     * Step 2: Sets an action listener for a button to load series data to be updated
      */
-    public void setupLoadAction(JSONRightPanel displayPanel) {
-        loadButton.addActionListener(e -> {
-            String seriesId = getSeriesId();
-            String[] data = searchByID(seriesId);
-            if (data != null) {
-                nameField.setText(data[1]);
-                ageField.setText(data[2]);
-                episodesField.setText(data[3]);
+    public void setupLoadAction(JSONRightPanel displayPanel) 
+    {
+        loadButton.addActionListener(e -> 
+        {
+            String seriesId = getSeriesId();                                                        //-Gets the input Series ID
+            String[] data = searchByID(seriesId);                                                   //-Calls the method that searches JSON file and assigns the result to data
+
+            if (data != null)                                                                       //-If series is found
+            {
+                nameField.setText(data[1]);                                                         //-Populate the name field
+                ageField.setText(data[2]);                                                          //-Populate the age field
+                episodesField.setText(data[3]);                                                     //-Populate the episodes field
             }
         });
     }
 
+
     /**
      * Step 3: Sets up the Save button to update JSON and refresh the display panel.
      */
-    public void setupSaveAction(JSONRightPanel displayPanel) {
-        saveButton.addActionListener(e -> {
+    public void setupSaveAction(JSONRightPanel displayPanel) 
+    {
+        saveButton.addActionListener(e -> 
+        {
             String seriesId = getSeriesId();
             String name = nameField.getText();
             String age = ageField.getText();
@@ -115,23 +123,22 @@ public class UpdateSeries extends JPanel
         });
     }
 
-    /**
-     * Get the Series ID from the form.
-     */
-    public String getSeriesId() {
-        return idField.getText().trim();
-    }
 
     /**
-     * Static method to search for a series by ID.
+     * Static method to search for a series by ID
      */
-    public static String[] searchByID(String seriesId) {
-        try (FileInputStream input = new FileInputStream(FILE_PATH)) {
+    public static String[] searchByID(String seriesId) 
+    {
+        try (FileInputStream input = new FileInputStream(FILE_PATH)) 
+        {
             JSONArray seriesArray = new JSONArray(new JSONTokener(input));
-            for (int i = 0; i < seriesArray.length(); i++) {
+            for (int i = 0; i < seriesArray.length(); i++) 
+            {
                 JSONObject series = seriesArray.getJSONObject(i);
-                if (seriesId.equals(series.getString("SeriesID"))) {
-                    return new String[]{
+                if (seriesId.equals(series.getString("SeriesID"))) 
+                {
+                    return new String[]
+                    {
                         series.getString("SeriesID"),
                         series.getString("Name"),
                         series.getString("AgeRestriction"),
@@ -148,7 +155,11 @@ public class UpdateSeries extends JPanel
         }
     }
 
-    // --- Getters for HomePanel ---
+
+    /**
+     * Getter to expose buttons and methods for the Home Panel
+     */
+    public String getSeriesId() { return idField.getText().trim(); }
     public JButton getUpdateButton() { return loadButton; }
     public JButton getSaveButton() { return saveButton; }
 }

@@ -140,8 +140,9 @@ public class RightPanel extends JPanel
     
     /**
      * Stores the series data to a JSON file while the program runs
-     * Makes use of a temporary memory to store the existing file
+     * Reads existing data, appends the new object, then writes back the full array
      * @param panelData
+     * Method logic asssited by Open AI
      */
     public void storeData(String[] panelData) 
     {
@@ -149,36 +150,44 @@ public class RightPanel extends JPanel
         {
             JSONArray seriesArray = new JSONArray();                                                //-Creates a new JSON array
 
-            try (FileReader reader = new FileReader("series.json"))                                 //-Tries to read the existing JSON file
+        //-Step 1: Read existing JSON file (AllSeries.json) if it already exists
+            try (FileReader reader = new FileReader("AllSeries.json")) 
             {
-                char[] buffer = new char[4096];                                                     //-Sets temporary memory size for reading the file
-                int length = reader.read(buffer);                                                   //-Reads data into the temporary memory
-                    if (length > 0)                                                                 //-Checks if any data was read
-                    {
-                        String existing = new String(buffer, 0, length);                            //-Creates a string from the temporary memory
-                        seriesArray = new JSONArray(existing);                                      //-Parses the string into a JSON array
-                    }
-            } catch (IOException a) {
-                a.printStackTrace();
+                char[] buffer = new char[4096];                                                     //-Temporary memory for reading file content
+                int length = reader.read(buffer);                                                   //-Reads characters into the buffer
+                if (length > 0)                                                                     //-Checks if file was not empty
+                {
+                    String existing = new String(buffer, 0, length);                                //-Converts buffer content into a string
+                    seriesArray = new JSONArray(existing);                                          //-Parses the string into a JSON array
+                }
+            } 
+            catch (IOException e) 
+            {
+                //-If the file does not exist yet, ignore (first time saving)
             }
 
-        //-Create a new series object to hold the current series data
+        //-Step 2: Create a new series object to hold the current panel data
             JSONObject series = new JSONObject();
-            series.put("SeriesID", panelData[0]);
-            series.put("Name", panelData[1]);
-            series.put("AgeRestriction", panelData[2]);
-            series.put("Episodes", panelData[3]);
+            series.put("SeriesID", panelData[0]);                                               //-Stores the Series ID
+            series.put("Name", panelData[1]);                                                   //-Stores the Series Name
+            series.put("AgeRestriction", panelData[2]);                                         //-Stores the Age Restriction
+            series.put("Episodes", panelData[3]);                                               //-Stores the Episodes
+            ///series.put("Description", descriptionField.getText());                              //-Stores the Description entered in the text area
 
-        //-Parse the series object to the array and save
-            seriesArray.put(series);                                                                //-Adds the series object to the array
-                try (FileWriter writeData = new FileWriter("AllSeries.json"))                       //-Writes the JSON array to the file
-                {
-                    writeData.write(seriesArray.toString(4));                          //-Formats the JSON output with an indentation of 4 spaces
-                }
+        //-Step 3: Append the new series object to the array
+            seriesArray.put(series);                                                                //-Adds the series object to the JSON array
 
-        } catch (java.io.IOException | org.json.JSONException b) {                                  //-Multi-catch for specific exceptions
-                b.printStackTrace();                                                                //-Prints LOG for errors to help debug saving data to JSON
-            JOptionPane.showMessageDialog(null, "Error saving series data!");
+        //-Step 4: Write the updated array back to the JSON file
+            try (FileWriter writeData = new FileWriter("AllSeries.json")) 
+            {
+                writeData.write(seriesArray.toString(4));                              //-Formats JSON output with indentation of 4 spaces
+            }
+
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();                                                                    //-Logs errors to console for debugging
+            JOptionPane.showMessageDialog(null, "Error saving series data!");                       //-Shows error dialog to user
         }
-    }   
+    }
 }
