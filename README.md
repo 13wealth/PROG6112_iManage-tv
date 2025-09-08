@@ -1,9 +1,9 @@
 # TV Series Management Application#
 
-Author: Smithy
-Course: PROG6112 - Software Development
-Project: Assignment Submission
-Git Repository: [Insert your GitHub link here]
+**Author:** Smith Mbele
+**Course:** PROG6112 - Software Development
+**Project:** Assignment Submission
+**Git Repository:** [Insert your GitHub link here]
 
 Overview
 
