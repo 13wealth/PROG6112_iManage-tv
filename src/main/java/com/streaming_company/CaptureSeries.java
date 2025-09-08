@@ -122,16 +122,15 @@ public class CaptureSeries extends JPanel
      */
     public static String generateSeriesId() 
     {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  // characters to choose from
-    StringBuilder id = new StringBuilder("S");               // start with 'S'
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";                                      //-Characters to choose from
+        StringBuilder id = new StringBuilder("S");                                                  //-Code start with
     
-    for (int i = 0; i < 3; i++) {                           // generate 3 random characters
-        int rand = (int) (Math.random() * chars.length());
-        id.append(chars.charAt(rand));
+        for (int i = 0; i < 3; i++) {                                                               //-This section generateds 3 random characters
+            int rand = (int) (Math.random() * chars.length());
+            id.append(chars.charAt(rand));
+        }
+        return id.toString();                                                                       //-Returns a unique Series ID
     }
-    
-    return id.toString();                                    // returns something like S7A2
-}
     
 
     /**
