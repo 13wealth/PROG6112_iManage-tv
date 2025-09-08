@@ -4,6 +4,7 @@ package com;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import com.streaming_company.AppLauncher;
 import com.streaming_company.HomePanel;
 import com.streaming_company.UIHelper;
 
@@ -13,8 +14,8 @@ public class iManageTV
 {
     public static void main(String[] args) 
     {
-        //AppLauncher.startMenu();                                                                  //-Call this app launcher method to validate user choice
-        //UIHelper.playWelcomeTone("/sounds/welcome2.wav");                                         //-Plays a welcome tone when the application starts
+        AppLauncher.startMenu();                                                                  //-Call this app launcher method to validate user choice
+        UIHelper.playWelcomeTone("/sounds/welcome2.wav");                                         //-Plays a welcome tone when the application starts
    
         SwingUtilities.invokeLater(() -> 
         {                                                      
@@ -28,6 +29,7 @@ public class iManageTV
         });
     }
 }
+
 
 
  /**

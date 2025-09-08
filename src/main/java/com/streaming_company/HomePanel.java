@@ -118,12 +118,12 @@ import javax.swing.JPanel;
             deleteButton.addActionListener(a -> 
             {
                 jsonRightPanel = new JSONRightPanel();
-                swapRightPanel(jsonRightPanel);
+                swapRightPanel(jsonRightPanel);                                                     //-Calls a method that swaps the right panel to the correct panel
 
-                DeleteSeries deleteForm = new DeleteSeries();
-                mainContentPanel.updateContent(deleteForm);
+                DeleteSeries deleteForm = new DeleteSeries();                                       //-Creates an instance of the DeleteSeries class
+                mainContentPanel.updateContent(deleteForm);                                         //-Updates the main content panel with the delete form
 
-                deleteForm.setupDeleteAction(jsonRightPanel);
+                deleteForm.deleteExecution(jsonRightPanel);                                         //-Calls the method that executes the delete
             });
 
         //+++ SERIES REPORT
