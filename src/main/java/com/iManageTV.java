@@ -14,8 +14,8 @@ public class iManageTV
 {
     public static void main(String[] args) 
     {
-        AppLauncher.startMenu();                                                                  //-Call this app launcher method to validate user choice
-        UIHelper.playWelcomeTone("/sounds/welcome2.wav");                                         //-Plays a welcome tone when the application starts
+        AppLauncher.startMenu();                                                                    //-Call this app launcher method to validate user choice
+        UIHelper.playWelcomeTone("/sounds/welcome2.wav");                                 //-Plays a welcome tone when the application starts
    
         SwingUtilities.invokeLater(() -> 
         {                                                      

@@ -6,12 +6,6 @@
         "Name": "SearchSeriesTest"
     },
     {
-        "SeriesID": "SJJE",
-        "AgeRestriction": "18",
-        "Episodes": "25",
-        "Name": "UpdateSeriesTest"
-    },
-    {
         "SeriesID": "SAIG",
         "AgeRestriction": "12",
         "Episodes": "45",
@@ -64,5 +58,35 @@
         "AgeRestriction": "14",
         "Episodes": "67",
         "Name": "Series Test 2"
+    },
+    {
+        "SeriesID": "SJJE",
+        "AgeRestriction": "16",
+        "Episodes": "23",
+        "Name": "Serie 1"
+    },
+    {
+        "SeriesID": "SJJE",
+        "AgeRestriction": "18",
+        "Episodes": "25",
+        "Name": "Updated Serie"
+    },
+    {
+        "SeriesID": "SJJE",
+        "AgeRestriction": "16",
+        "Episodes": "23",
+        "Name": "Serie 1"
+    },
+    {
+        "SeriesID": "SJJE",
+        "AgeRestriction": "18",
+        "Episodes": "25",
+        "Name": "Updated Serie"
+    },
+    {
+        "SeriesID": "SUXH",
+        "AgeRestriction": "12",
+        "Episodes": "4",
+        "Name": "Final draw"
     }
 ]

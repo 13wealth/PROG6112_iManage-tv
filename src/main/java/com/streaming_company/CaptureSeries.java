@@ -146,7 +146,7 @@ public class CaptureSeries extends JPanel
     }
 
     /**
-     * Provides a new ID for the next form
+     * Setter method to provide a new ID for the next form
      * @param newId
      */
     public void setSeriesId(String newId) 

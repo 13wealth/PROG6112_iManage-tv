@@ -55,18 +55,21 @@ import javax.swing.JPanel;
     //STEP 2: CREATE LOGIC AND ADD IT TO PANELS AND BUTTONS
 
         //+++ CAPTURE SERIES
-            JButton captureButton = sidebarPanel.getCaptureButton();
+            JButton captureButton = sidebarPanel.getCaptureButton();                                //-Calls the capture button from the sidebar panel
+
+            //-Handles the capture button click
             captureButton.addActionListener(a -> 
             {
                 swapRightPanel(rightPanel);
                 rightPanel.setData(new String[] {"", "", "", "", ""});                              //-Clears previous data on the fields
 
-                CaptureSeries addSeriesForm = new CaptureSeries();
-                mainContentPanel.updateContent(addSeriesForm);
+                CaptureSeries addSeriesForm = new CaptureSeries();                                  //-Creates a new instance of CaptureSeries
+                mainContentPanel.updateContent(addSeriesForm);                                      //-Updates the main content panel with the new form
 
-                addSeriesForm.getSubmitButton().addActionListener(b -> 
+            //-Handles the submit button click
+                addSeriesForm.getSubmitButton().addActionListener(b ->                              
                 {
-                    String[] capturedData = addSeriesForm.getData();
+                    String[] capturedData = addSeriesForm.getData();                                //-Gets the captured data from the form
                     String age = capturedData[2];
                     String episodes = capturedData[3];
                     if (!Validations.validateData(age, episodes)) return;
@@ -76,25 +79,27 @@ import javax.swing.JPanel;
                     rightPanel.storeData(rightPanel.getData());
 
                     addSeriesForm.resetFields();
-                    addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());
+                    addSeriesForm.setSeriesId(CaptureSeries.generateSeriesId());                    //-Calls the static method to generate a new Series ID
                 });
             });
 
         //+++ SEARCH SERIES
-            JButton searchSeriesButton = sidebarPanel.getSearchButton();
+            JButton searchSeriesButton = sidebarPanel.getSearchButton();                            //-Calls the search button from the sidebar panel
+
+            //-Handles the search button click
             searchSeriesButton.addActionListener(a -> 
             {
                 swapRightPanel(rightPanel);
 
                 rightPanel.setData(new String[] {"", "", "", "", ""});
 
-                SearchSeries form = new SearchSeries();
+                SearchSeries form = new SearchSeries();                                             //-Creates a new instance of SearchSeries
                 mainContentPanel.updateContent(form);
-
+            //-Handles the search button click
                 form.getSearchButton().addActionListener(b -> 
                 {
                     String seriesId = form.getSeriesId();
-                    String[] capturedData = SearchSeries.searchByID(seriesId);
+                    String[] capturedData = SearchSeries.searchByID(seriesId);                      //-Searches for the series by ID
                     rightPanel.setData(capturedData);
                 });
             });
@@ -127,14 +132,14 @@ import javax.swing.JPanel;
             });
 
         //+++ SERIES REPORT
-            JButton reportButton = sidebarPanel.getReportButton();
+            JButton reportButton = sidebarPanel.getReportButton();                                  //-Calls the report button from the sidebar panel
             reportButton.addActionListener(a -> 
             {
                 jsonRightPanel = new JSONRightPanel();
                 swapRightPanel(jsonRightPanel);
 
                 JPanel reportMessagePanel = new JPanel();                                           //-Displays text in the main content area
-                JLabel messageLabel = new JLabel("Current Active Series", JLabel.CENTER);
+                JLabel messageLabel = new JLabel("Current Active Series", JLabel.CENTER);           //-Creates a label for the report message
                 messageLabel.setFont(new Font("Arial", Font.BOLD, 24));
                 messageLabel.setForeground(new Color(50, 50, 50));
                 reportMessagePanel.add(messageLabel, BorderLayout.CENTER);
