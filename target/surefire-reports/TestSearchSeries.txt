@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: TestSearchSeries
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 7, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 6329 s <<< FAILURE! -- in TestSearchSeries
 TestSearchSeries.testUpdateSeries -- Time elapsed: 0.057 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Name was not updated correctly ==> expected: <Updated Serie> but was: <UpdateSeriesTest>
@@ -76,10 +77,15 @@ org.opentest4j.AssertionFailedError: Name was not updated correctly ==> expected
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
 TestSearchSeries.testDeleteSeries -- Time elapsed: 0.253 s <<< FAILURE!
+=======
+Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 5.518 s <<< FAILURE! -- in TestSearchSeries
+TestSearchSeries.testDeleteSeries -- Time elapsed: 0.444 s <<< FAILURE!
+>>>>>>> origin
 org.opentest4j.AssertionFailedError: Series exists and availiable for deletion ==> expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:193)
+<<<<<<< HEAD
 	at TestSearchSeries.testDeleteSeries(TestSearchSeries.java:67)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
@@ -154,6 +160,9 @@ org.opentest4j.AssertionFailedError: Name mismatch ==> expected: <Serie 1> but w
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1135)
 	at TestSearchSeries.testSearchSeries(TestSearchSeries.java:27)
+=======
+	at TestSearchSeries.testDeleteSeries(TestSearchSeries.java:70)
+>>>>>>> origin
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)

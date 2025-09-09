@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSearchSeries" time="6328.924" tests="7" errors="0" skipped="0" failures="3">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSearchSeries" time="5.518" tests="7" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="24"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -17,6 +18,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\SOFTWARE\Oracle_JDK-24\bin"/>
     <property name="sun.java.command" value="C:\Users\E949238\AppData\Local\Temp\surefire5475335605460551261\surefirebooter-20250908192443651_3.jar C:\Users\E949238\AppData\Local\Temp\surefire5475335605460551261 2025-09-08T19-24-43_415-jvmRun1 surefire-20250908192443651_1tmp surefire_0-20250908192443651_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\E949238\AppData\Local\Temp\surefire16498655027464635825\surefirebooter-20250908195741361_3.jar C:\Users\E949238\AppData\Local\Temp\surefire16498655027464635825 2025-09-08T19-57-41_161-jvmRun1 surefire-20250908195741361_1tmp surefire_0-20250908195741361_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\E949238\OneDrive - Sanlam Life Insurance Limited\Desktop\Private\Academic\DIT Software Dev\_vscode\PROG6112_A1_ST10472346\target\test-classes;C:\Users\E949238\OneDrive - Sanlam Life Insurance Limited\Desktop\Private\Academic\DIT Software Dev\_vscode\PROG6112_A1_ST10472346\target\classes;C:\Users\E949238\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\E949238\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\E949238\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\E949238\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\E949238\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\E949238\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\E949238\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\E949238\.m2\repository\org\json\json\20250517\json-20250517.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,6 +34,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="surefire.real.class.path" value="C:\Users\E949238\AppData\Local\Temp\surefire5475335605460551261\surefirebooter-20250908192443651_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\E949238\AppData\Local\Temp\surefire16498655027464635825\surefirebooter-20250908195741361_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="24.0.2+12-54"/>
@@ -138,11 +141,17 @@
 ]]></failure>
   </testcase>
   <testcase name="testDeleteSeries" classname="TestSearchSeries" time="0.253">
+  <testcase name="testDeleteSeries_SeriesNotFound" classname="TestSearchSeries" time="0.06"/>
+  <testcase name="testSearchSeries_SeriesNotFound" classname="TestSearchSeries" time="1.579"/>
+  <testcase name="testSeriesAgeRestriction_AgeInValid" classname="TestSearchSeries" time="3.341"/>
+  <testcase name="testUpdateSeries" classname="TestSearchSeries" time="0.053"/>
+  <testcase name="testDeleteSeries" classname="TestSearchSeries" time="0.444">
     <failure message="Series exists and availiable for deletion ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Series exists and availiable for deletion ==> expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:193)
 	at TestSearchSeries.testDeleteSeries(TestSearchSeries.java:67)
+	at TestSearchSeries.testDeleteSeries(TestSearchSeries.java:70)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:686)
@@ -285,4 +294,6 @@
 ]]></failure>
   </testcase>
   <testcase name="testSeriesAgeRestriction_AgeValid" classname="TestSearchSeries" time="0.002"/>
+  <testcase name="testSearchSeries" classname="TestSearchSeries" time="0.004"/>
+  <testcase name="testSeriesAgeRestriction_AgeValid" classname="TestSearchSeries" time="0.001"/>
 </testsuite>
