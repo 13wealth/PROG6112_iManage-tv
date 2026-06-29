@@ -19,7 +19,7 @@ public class iManageTV
    
         SwingUtilities.invokeLater(() -> 
         {                                                      
-            JFrame appWindow = new JFrame("Your Shows, Your Control!");                             //-Creates JFrame application window called "appWindow"
+            JFrame appWindow = new JFrame("Your Shows in one space!");                             //-Creates JFrame application window called "appWindow"
             UIHelper.setAppIcon(appWindow, "/images/iM_icon.png");                         //-Sets the application icon when the application starts
             UIHelper.adaptScreen(appWindow);                                                        //-Adapts the JFrame to any screen size
             appWindow.setLocationRelativeTo(null);                                                  //-Centers the frame on the screen
